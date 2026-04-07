@@ -50,6 +50,87 @@ Análisis de Volumen
 Generación de Gráficos y CSV
 ```
 
+### 2.3 Diseño Arquitectónico del Proceso ETL
+
+El proceso ETL es automatizado y se ejecuta secuencialmente al iniciar el programa. Está compuesto por tres etapas bien definidas:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                     PROCESO ETL AUTOMATIZADO                    │
+│                                                                 │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────────┐  │
+│  │   EXTRACT    │───▶│  TRANSFORM   │───▶│      LOAD        │  │
+│  │ ObtenerDatos │    │ LimpiarDatos │    │ guardarDatos()   │  │
+│  └──────────────┘    └──────────────┘    └──────────────────┘  │
+│         │                   │                    │              │
+│  API Twelve Data      Deduplicación        datos_unificados     │
+│  20 símbolos          IQR Outliers              .csv            │
+│  5 años historial     Interpolación                             │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+#### Etapa 1 — Extract (`ObtenerDatos`)
+
+**Fuente**: API REST de Twelve Data (`https://api.twelvedata.com/time_series`)
+
+**Proceso**:
+1. Itera sobre los 20 símbolos definidos en `SIMBOLOS[]`
+2. Por cada símbolo construye la URL con parámetros: `interval=1day`, `start_date`, `end_date`, `outputsize=5000`
+3. Realiza una petición HTTP GET con timeout de 30 segundos
+4. Parsea manualmente el JSON de respuesta extrayendo el array `values[]`
+5. Mapea cada entrada a un objeto `DatoFinanciero` (fecha, símbolo, open, high, low, close, volume)
+6. Aplica un delay de 8 segundos entre peticiones para respetar el rate limit de la API
+
+**Control de errores**:
+- Verifica código HTTP 200 antes de procesar
+- Detecta respuestas de error de la API (`status: error`, código 429)
+- Omite registros con `close <= 0`
+
+**Salida**: `List<DatoFinanciero>` con todos los registros crudos
+
+#### Etapa 2 — Transform (`LimpiarDatos`)
+
+**Proceso** (aplicado en orden):
+
+1. **Deduplicación**: usa un `HashSet<String>` con clave compuesta `fecha-símbolo` para eliminar registros duplicados en O(n)
+2. **Detección de outliers**: agrupa datos por símbolo, calcula Q1, Q3 e IQR sobre los precios de cierre ordenados, marca como outlier todo valor fuera del rango `[Q1 - 1.5·IQR, Q3 + 1.5·IQR]`
+3. **Interpolación lineal**: para registros con `close == 0`, reemplaza el valor con el promedio entre el registro anterior y el siguiente del mismo símbolo
+
+**Salida**: `List<DatoFinanciero>` limpia y lista para análisis
+
+#### Etapa 3 — Load (`Principal.guardarDatos()`)
+
+**Proceso**:
+1. Recibe la lista limpia de `DatoFinanciero`
+2. Escribe el encabezado CSV usando `toCsvHeader()`
+3. Serializa cada registro con `toString()` en formato CSV
+4. Persiste en `datos_unificados.csv` en el directorio de ejecución
+
+**Salida**: archivo `datos_unificados.csv` con todos los registros procesados
+
+#### Diagrama de secuencia ETL
+
+```
+Principal        ObtenerDatos         API Twelve Data      LimpiarDatos       FileWriter
+    │                  │                      │                  │                 │
+    │─obtenerTodos()──▶│                      │                  │                 │
+    │                  │──GET /time_series───▶│                  │                 │
+    │                  │◀──JSON response──────│                  │                 │
+    │                  │  (parseo manual)     │                  │                 │
+    │                  │  [repite x20 símbolos + delay 8s]       │                 │
+    │◀─List<Dato>──────│                      │                  │                 │
+    │                  │                      │                  │                 │
+    │─limpiarDatos()──────────────────────────────────────────▶ │                 │
+    │                  │                      │   deduplicar     │                 │
+    │                  │                      │   outliers IQR   │                 │
+    │                  │                      │   interpolar     │                 │
+    │◀─List<Dato> limpia──────────────────────────────────────── │                 │
+    │                  │                      │                  │                 │
+    │─guardarDatos()──────────────────────────────────────────────────────────────▶│
+    │                  │                      │                  │  datos_unificados.csv
+    │◀────────────────────────────────────────────────────────────────────────────│
+```
+
 ## 3. Módulos y Funcionalidades
 
 ### 3.1 ObtenerDatos
