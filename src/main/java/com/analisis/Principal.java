@@ -4,6 +4,8 @@ import com.analisis.algoritmo.*;
 import com.analisis.modelo.DatoFinanciero;
 import com.analisis.modelo.ResultadoOrdenamiento;
 import com.analisis.modelo.ResultadoVolumen;
+import com.analisis.modelo.ResultadoSimilitud;
+import com.analisis.servicio.AnalizadorSimilitud;
 import com.analisis.servicio.AnalizadorVolumen;
 import com.analisis.servicio.GeneradorGrafica;
 import com.analisis.servicio.LimpiarDatos;
@@ -21,11 +23,15 @@ public class Principal {
     private static final int ANIOS = 5;
     private static final String ARCHIVO_ORDENAMIENTO = "datos_ordenados.csv";
     private static final String ARCHIVO_VOLUMEN = "top_volumen.csv";
+    private static final String ARCHIVO_SIMILITUD = "similitud_activos.csv";
 
     public static void main(String[] args) {
         System.out.println("========================================");
         System.out.println("ANALISIS DE ALGORITMOS DE ORDENAMIENTO");
         System.out.println("========================================\n");
+
+String simboloA = args.length > 0 ? args[0] : "AAPL";
+        String simboloB = args.length > 1 ? args[1] : "MSFT";
 
         // Obtener datos
         ObtenerDatos obtentor = new ObtenerDatos();
@@ -55,10 +61,16 @@ public class Principal {
         GeneradorGrafica generadorGrafica = new GeneradorGrafica();
         generadorGrafica.generarGrafica(resultados, "grafica_ordenamiento.png");
         
-        // Analizar volumen
-        AnalizadorVolumen analizadorVolumen = new AnalizadorVolumen();
-        List<ResultadoVolumen> volumenes = analizadorVolumen.analizarTopVolumen(datos, 15);
-        analizadorVolumen.guardarResultados(volumenes, ARCHIVO_VOLUMEN);
+        // Analisis de similitud (argumentos: simboloA simboloB)
+        System.out.println("\n=== ANALISIS DE SIMILITUD ===");
+        System.out.println("Comparando: " + simboloA + " vs " + simboloB);
+        AnalizadorSimilitud analizadorSimilitud = new AnalizadorSimilitud();
+        analizadorSimilitud.mostrarResumen(datos, simboloA, simboloB);
+        GeneradorGrafica generadorSeries = new GeneradorGrafica();
+        generadorSeries.generarGraficaSeries(datos, simboloA, simboloB, "series_" + simboloA + "_" + simboloB + ".png");
+        
+        List<ResultadoSimilitud> similitudes = analizadorSimilitud.analizarTodosPares(datos);
+        analizadorSimilitud.guardarResultados(similitudes, ARCHIVO_SIMILITUD);
         
         System.out.println("\n========================================");
         System.out.println("ANALISIS COMPLETADO");

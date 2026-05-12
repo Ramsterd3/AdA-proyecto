@@ -2,7 +2,7 @@
 
 ## 1. Introducción
 
-Este proyecto implementa un sistema de análisis de algoritmos de ordenamiento utilizando datos financieros reales. El objetivo es comparar el rendimiento de 12 algoritmos de ordenamiento mediante la medición de tiempo de ejecución y verificar la complejidad algorítmica teórica.
+Este proyecto implementa un sistema de análisis algorítmico sobre datos financieros reales. Cubre el proceso ETL completo, comparación de 12 algoritmos de ordenamiento y análisis de similitud entre series de tiempo de activos financieros mediante 4 métricas distintas.
 
 ## 2. Arquitectura del Sistema
 
@@ -16,26 +16,35 @@ src/main/java/com/analisis/
 ├── modelo/
 │   ├── DatoFinanciero.java    # Entidad de datos OHLCV
 │   ├── ResultadoOrdenamiento.java
-│   └── ResultadoVolumen.java
+│   ├── ResultadoVolumen.java
+│   └── ResultadoSimilitud.java
 ├── servicio/
 │   ├── ObtenerDatos.java      # Extracción de datos
 │   ├── LimpiarDatos.java      # Transformación
+│   ├── CalendarioBursatil.java # Calendario mercados Colombia/EE.UU
 │   ├── AnalizadorVolumen.java # Análisis de volumen
-│   └── GeneradorGrafica.java # Visualización
-└── algoritmo/
-    ├── InterfazOrdenamiento.java
-    ├── TimSort.java
-    ├── CombSort.java
-    ├── SelectionSort.java
-    ├── TreeSort.java
-    ├── PigeonholeSort.java
-    ├── BucketSort.java
-    ├── QuickSort.java
-    ├── HeapSort.java
-    ├── BitonicSort.java
-    ├── GnomeSort.java
-    ├── BinaryInsertionSort.java
-    └── RadixSort.java
+│   ├── AnalizadorSimilitud.java # Análisis de similitud
+│   └── GeneradorGrafica.java  # Visualización
+├── algoritmo/
+│   ├── InterfazOrdenamiento.java
+│   ├── TimSort.java
+│   ├── CombSort.java
+│   ├── SelectionSort.java
+│   ├── TreeSort.java
+│   ├── PigeonholeSort.java
+│   ├── BucketSort.java
+│   ├── QuickSort.java
+│   ├── HeapSort.java
+│   ├── BitonicSort.java
+│   ├── GnomeSort.java
+│   ├── BinaryInsertionSort.java
+│   └── RadixSort.java
+└── similitud/
+    ├── InterfazSimilitud.java
+    ├── DistanciaEuclidiana.java
+    ├── CorrelacionPearson.java
+    ├── DTW.java
+    └── SimilitudCoseno.java
 ```
 
 ### 2.2 Flujo de Ejecución
@@ -46,6 +55,8 @@ ETL (Obtener → Limpiar → Unificar)
 Ordenamiento (12 algoritmos)
          ↓
 Análisis de Volumen
+         ↓
+Análisis de Similitud (4 algoritmos)
          ↓
 Generación de Gráficos y CSV
 ```
@@ -66,6 +77,8 @@ El proceso ETL es automatizado y se ejecuta secuencialmente al iniciar el progra
 │  API Twelve Data      Deduplicación        datos_unificados     │
 │  20 símbolos          IQR Outliers              .csv            │
 │  5 años historial     Interpolación                             │
+│                      Calendarizacion                             │
+│                      Trazabilidad                               │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -92,11 +105,37 @@ El proceso ETL es automatizado y se ejecuta secuencialmente al iniciar el progra
 
 **Proceso** (aplicado en orden):
 
-1. **Deduplicación**: usa un `HashSet<String>` con clave compuesta `fecha-símbolo` para eliminar registros duplicados en O(n)
-2. **Detección de outliers**: agrupa datos por símbolo, calcula Q1, Q3 e IQR sobre los precios de cierre ordenados, marca como outlier todo valor fuera del rango `[Q1 - 1.5·IQR, Q3 + 1.5·IQR]`
-3. **Interpolación lineal**: para registros con `close == 0`, reemplaza el valor con el promedio entre el registro anterior y el siguiente del mismo símbolo
+1. **ELIMINACION DE DUPLICADOS** (O(n))
+   - HashSet con clave compuesta "fecha-simbolo"
+   - Justificacion: Evita sobreponderacion de precios
+   - Impacto: Inflacion artificial de volumen evitada
+
+2. **DETECCION DE OUTLIERS** (O(n log n))
+   - Metodo: Rango Intercuartil (IQR)
+   - Formula: [Q1 - 1.5*IQR, Q3 + 1.5*IQR]
+   - Justificacion:Valores extremos distorsionan estadisticas
+   - Impacto: Solo se reporta, no se elimina (analisis de sensibilidad)
+
+3. **INTERPOLACION DE VALORES FALTANTES** (O(n^2))
+   - Estrategia por orden de prioridad:
+     1. Interpolacion lineal: (anterior + siguiente) / 2 — mantiene continuidad
+     2. Forward fill: usa valor anterior — conservador
+     3. Backward fill: usa valor siguiente — ajuste rapido
+   - Justificacion:Series temporales requieren continuidad
+   - Impacto: Mantiene tendencia vs suaviza transiciones
 
 **Salida**: `List<DatoFinanciero>` limpia y lista para análisis
+
+##### Componente `CalendarioBursatil`
+
+**Responsabilidad**: Manejar el calendario bursatilde EE.UU.
+
+**Caracteristicas**:
+- Dias festivos de EE.UU. (2021-2026)
+- Exclusion automatica de sabados y domingos
+- Metodos: `esDiaHabil()`, `siguienteDiaHabil()`, `anteriorDiaHabil()`
+
+**Complejidad**: O(1) por consulta
 
 #### Etapa 3 — Load (`Principal.guardarDatos()`)
 
@@ -106,7 +145,21 @@ El proceso ETL es automatizado y se ejecuta secuencialmente al iniciar el progra
 3. Serializa cada registro con `toString()` en formato CSV
 4. Persiste en `datos_unificados.csv` en el directorio de ejecución
 
-**Salida**: archivo `datos_unificados.csv` con todos los registros procesados
+**Salida**: archivo `datos_unificados.csv` con todos los registros procesado
+
+#### Trazabilidad del Proceso ETL
+
+El sistema registra decisiones en log:
+```
+Duplicados eliminados: X
+Outliers detectados: rango=[Q1-1.5*IQR, Q3+1.5*IQR]
+Valores interpolados: lineal/forward/backward
+```
+
+**Importancia**:
+- Permite auditar el proceso de limpieza
+- Justifica el impacto de cada decision sobre analisis posteriores
+- Cumple con requisitos de transparencia algoritmica
 
 #### Diagrama de secuencia ETL
 
@@ -146,14 +199,35 @@ Principal        ObtenerDatos         API Twelve Data      LimpiarDatos       Fi
 
 ### 3.2 LimpiarDatos
 
-**Responsabilidad**: Eliminar duplicados, detectar outliers, interpolar valores faltantes
+**Responsabilidad**: Eliminar duplicados, detectar outliers, interpolar valores faltantes, calendarizar series temporales
 
-**Complejidad**: O(n) para遍历 de datos
+**Complejidad**: O(n log n) por el ordenamiento de las series
 
-**Técnicas**:
-- Eliminación de duplicados mediante HashSet
-- Detección de outliers usando rango intercuartil (IQR)
-- Interpolación lineal para valores faltantes
+** Técnicas**:
+ - Eliminación de duplicados mediante HashSet
+ - Detección de outliers usando rango intercuartil (IQR)
+ - Interpolación lineal, forward fill y backward fill para valores faltantes
+ - Calendarización usando `CalendarioBursatil`
+
+**Impacto algorítmico de las decisiones**:
+| Técnica | Cuándo usar | Efecto en análisis |
+|---------|-----------|------------------|
+| Interpolación lineal | Datos faltantes en medio | Suaviza picos, mantiene tendencia |
+| Forward fill | Primer dato faltante | Conservador, asume precio constantes |
+| Backward fill | Último dato faltante | Utiliza info reciente |
+| Calendarización | Fines de semana/festivos | Justifica gaps, mantiene continuidad |
+
+### 3.2b CalendarioBursatil
+
+**Responsabilidad**: Gestionar días hábiles en mercados financieros
+
+**Complejidad**: O(1) por consulta
+
+**enum Mercado**: `COLOMBIA`, `USA`, `AMBOS`
+
+**Festivos incluidos (2021-2026)**:
+ - Colombia: Reyes (6 ene), San José (19 mar), Trabajo (1 may), San Pedro (29 jun), Independencia (20 jul), Batalla de Boyacá (7 ago), Día de la Raza (12 oct), Todos los Santos (15 nov), Inmaculada Concepción (8 dic)
+ - EE.UU.: New Year's Day, MLK Day, Presidents Day, Memorial Day, Independence Day, Labor Day, Columbus Day, Veterans Day, Thanksgiving, Christmas
 
 ### 3.3 Algoritmos de Ordenamiento
 
@@ -184,13 +258,123 @@ Los 12 algoritmos implementados con su complejidad teórica:
 
 **Complejidad**: O(n) para agregación + O(n log n) para ordenamiento
 
+### 3.5 Algoritmos de Similitud de Series de Tiempo
+
+**Responsabilidad**: Comparar el comportamiento historico entre pares de activos usando retornos diarios.
+
+**Preprocesamiento**: Los precios de cierre se convierten a retornos diarios:
+```
+retorno_i = (cierre_i - cierre_{i-1}) / cierre_{i-1}
+```
+Esto normaliza las series y permite comparar activos con precios en distintas escalas.
+
+---
+
+#### Distancia Euclidiana
+
+| Aspecto | Detalle |
+|---------|---------|
+| Complejidad | O(n) |
+| Espacio | O(1) |
+| Formula | d(A,B) = sqrt(sum(a_i - b_i)^2) |
+| Rango | [0, infinito) |
+
+**Algoritmo**:
+1. Obtener n = min(|A|, |B|)
+2. Para i = 0 hasta n-1: suma += (A[i] - B[i])^2
+3. Retornar sqrt(suma)
+
+** Cuando usar**: Series igual longitud, impo magnitude diferencial, analisis rapido
+
+** vs DTW**: Mas rapido O(n) vs O(n*m), no tolera desplazamientos
+** vs Pearson**: Mide distancia, no relacion lineal
+** vs Coseno**: Sensible a magnitud, no solo direccion
+
+---
+
+#### Correlacion de Pearson
+
+| Aspecto | Detalle |
+|---------|---------|
+| Complejidad | O(n) |
+| Espacio | O(1) |
+| Formula | r = sum((a_i-avg)(b_i-avg)) / sqrt(sum(a_i-avg)^2 * sum(b_i-avg)^2) |
+| Rango | [-1, 1] |
+
+**Algoritmo**:
+1. Calcular promedio de A y B
+2. Numerador: sum((a_i-mediaA)(b_i-mediaB))
+3. Denominador: sqrt(sum(a_i-mediaA)^2 * sum(b_i-mediaB)^2)
+4. Retornar numerador/denominador
+
+** Cuando usar**: Detectar si activos se mueven juntos, analisis de diversificacion
+
+** vs Euclidiana**: Mide RELACIONlineal, no distancia
+** vs DTW**: Mas rapido O(n), asume alineacion correcta
+** vs Coseno**: Centra datos (restar media), Coseno no
+
+---
+
+#### Dynamic Time Warping (DTW)
+
+| Aspecto | Detalle |
+|---------|---------|
+| Complejidad | O(n * m) |
+| Espacio | O(n * m) |
+| Formula | dtw[i][j] = |a_i-b_j| + min(dtw[i-1][j], dtw[i][j-1], dtw[i-1][j-1]) |
+| Rango | [0, infinito) |
+
+**Algoritmo**:
+1. Crear matriz dtw[(n+1)][(m+1)] con infinito
+2. dtw[0][0] = 0
+3. Para i=1,n: para j=1,m: dtw[i][j] = |A[i-1]-B[j-1]| + minvecino
+4. Retornar dtw[n][m]
+
+** Cuando usar**: Series deferent longitud, delays ofase variable
+
+** Advertencia**: Costoso para series largas (O(n*m))
+** vs Euclidiana**: Tolera desplazamientos, mas costoso
+** vs Pearson**: No assume alineacion temporal correcta
+** vs Coseno**: Maneja series de diferente longitud
+
+---
+
+#### Similitud por Coseno
+
+| Aspecto | Detalle |
+|---------|---------|
+| Complejidad | O(n) |
+| Espacio | O(1) |
+| Formula | cos = (A·B) / (||A|| * ||B||) |
+| Rango | [-1, 1] |
+
+**Algoritmo**:
+1. Producto punto: sum(a_i * b_i)
+2. Norma A: sqrt(sum(a_i^2))
+3. Norma B: sqrt(sum(b_i^2))
+4. Retornar punto / (normaA * normaB)
+
+** Cuando usar**: Comparar direccion, no magnitud, datos de diferentes escalas
+
+** Caracteristica especial**: INSENSIBLE a magnitud, solo direccion
+
+---
+
+#### Implementacion en `AnalizadorSimilitud`
+
+- `analizar(datos, simboloA, simboloB)`: calcula los 4 algoritmos para un par especifico
+- `analizarTodosPares(datos)`: itera sobre todos los pares posibles
+- `mostrarResumen(datos, simboloA, simboloB)`: imprime tabla comparativa
+- `guardarResultados(resultados, archivo)`: persiste en CSV
+
+**Salida**: `similitud_activos.csv` con columnas `ActivoA, ActivoB, Algoritmo, Complejidad, Valor`
+
+---
+
 ## 4. Activos Financieros
 
-### 10 Acciones Colombianas
-ECOPETROL, ISA, GEB, NUTRESA, GRUPOSURA, BANCOLOMBIA, COLTEJERA, ENKA, PREFERENCIAL, CANACOL
-
-### 10 ETFs Internacionales
-VOO, VTI, QQQ, SPY, VEA, VWO, BND, EFA, EEM, TLT
+### 20 Activos de EE.UU.
+AAPL, MSFT, GOOGL, AMZN, NVDA, META, TSLA, JPM, JNJ, V, PG, UNH, HD, MA, DIS, PYPL, ADBE, NFLX, INTC, CSCO
 
 ## 5. Justificación de Decisiones
 
@@ -211,12 +395,44 @@ VOO, VTI, QQQ, SPY, VEA, VWO, BND, EFA, EEM, TLT
 
 ## 6. Resultados Esperados
 
-- CSV con tabla de 12 algoritmos (método+complejidad, tamaño, tiempo)
-- CSV con 15 días de mayor volumen
-- Gráfico de barras comparando tiempos
+- `datos_unificados.csv` — todos los registros financieros procesados
+- `datos_ordenados.csv` — tabla de 12 algoritmos (método, complejidad, tamaño, tiempo)
+- `top_volumen.csv` — 15 días con mayor volumen de negociación
+- `similitud_activos.csv` — similitud entre todos los pares de activos con 4 métricas
+- `grafica_ordenamiento.png` — gráfica de barras comparando tiempos de ordenamiento
 - Los resultados deben mostrar correlación entre complejidad teórica y tiempo real
 
-## 7. Requisitos de Ejecución
+## 7. Testing
+
+### 7.1 Tests Unitarios
+
+El proyecto incluye tests unitarios para verificar el correcto funcionamiento de los componentes críticos:
+
+| Módulo | Clase Test | Tests |
+|--------|-----------|-------|
+| Servicio | CalendarioBursatilTest | 5 |
+| Servicio | LimpiarDatosTest | 5 |
+| Similitud | SimilitudTest | 10 |
+| Algoritmo | AlgoritmoOrdenamientoTest | 8 |
+
+**Total: 28 tests unitarios**
+
+### 7.2 Comandos
+
+```bash
+# Compilar y ejecutar tests
+mvn clean test
+```
+
+### 7.3 Cobertura
+
+Los tests verifican:
+- Calendario bursátil: días hábiles, festivos EE.UU. y Colombia
+- Limpieza ETL: deduplicación, interpolación, forward fill, backward fill
+- Algoritmos de similitud: casos límites, series vacías, datos idénticos
+- Algoritmos de ordenamiento: orden correcto, casos especiales
+
+## 8. Requisitos de Ejecución
 
 - Java 17
 - Maven 3.8+
