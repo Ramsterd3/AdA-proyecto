@@ -1,0 +1,761 @@
+ActivoA,ActivoB,Algoritmo,Complejidad,Valor
+AAPL,MSFT,Distancia Euclidiana,O(n),0,544495
+AAPL,MSFT,Correlacion de Pearson,O(n),0,590254
+AAPL,MSFT,Dynamic Time Warping (DTW),O(n*m),10,287823
+AAPL,MSFT,Similitud por Coseno,O(n),0,590816
+AAPL,GOOGL,Distancia Euclidiana,O(n),0,615497
+AAPL,GOOGL,Correlacion de Pearson,O(n),0,564274
+AAPL,GOOGL,Dynamic Time Warping (DTW),O(n*m),11,948573
+AAPL,GOOGL,Similitud por Coseno,O(n),0,565337
+AAPL,AMZN,Distancia Euclidiana,O(n),0,690486
+AAPL,AMZN,Correlacion de Pearson,O(n),0,540664
+AAPL,AMZN,Dynamic Time Warping (DTW),O(n*m),13,251947
+AAPL,AMZN,Similitud por Coseno,O(n),0,541199
+AAPL,NVDA,Distancia Euclidiana,O(n),0,999504
+AAPL,NVDA,Correlacion de Pearson,O(n),0,500915
+AAPL,NVDA,Dynamic Time Warping (DTW),O(n*m),19,988469
+AAPL,NVDA,Similitud por Coseno,O(n),0,502351
+AAPL,META,Distancia Euclidiana,O(n),0,877837
+AAPL,META,Correlacion de Pearson,O(n),0,470829
+AAPL,META,Dynamic Time Warping (DTW),O(n*m),15,938894
+AAPL,META,Similitud por Coseno,O(n),0,471571
+AAPL,TSLA,Distancia Euclidiana,O(n),1,151302
+AAPL,TSLA,Correlacion de Pearson,O(n),0,482968
+AAPL,TSLA,Dynamic Time Warping (DTW),O(n*m),24,147469
+AAPL,TSLA,Similitud por Coseno,O(n),0,483620
+AAPL,JPM,Distancia Euclidiana,O(n),0,648189
+AAPL,JPM,Correlacion de Pearson,O(n),0,377722
+AAPL,JPM,Dynamic Time Warping (DTW),O(n*m),11,599462
+AAPL,JPM,Similitud por Coseno,O(n),0,378883
+AAPL,JNJ,Distancia Euclidiana,O(n),0,667581
+AAPL,JNJ,Correlacion de Pearson,O(n),0,152589
+AAPL,JNJ,Dynamic Time Warping (DTW),O(n*m),11,013983
+AAPL,JNJ,Similitud por Coseno,O(n),0,153595
+AAPL,V,Distancia Euclidiana,O(n),0,574937
+AAPL,V,Correlacion de Pearson,O(n),0,486940
+AAPL,V,Dynamic Time Warping (DTW),O(n*m),10,494415
+AAPL,V,Similitud por Coseno,O(n),0,487476
+AAPL,PG,Distancia Euclidiana,O(n),0,640836
+AAPL,PG,Correlacion de Pearson,O(n),0,250007
+AAPL,PG,Dynamic Time Warping (DTW),O(n*m),10,961402
+AAPL,PG,Similitud por Coseno,O(n),0,250223
+AAPL,UNH,Distancia Euclidiana,O(n),0,880857
+AAPL,UNH,Correlacion de Pearson,O(n),0,116388
+AAPL,UNH,Dynamic Time Warping (DTW),O(n*m),13,259020
+AAPL,UNH,Similitud por Coseno,O(n),0,116542
+AAPL,HD,Distancia Euclidiana,O(n),0,614419
+AAPL,HD,Correlacion de Pearson,O(n),0,436342
+AAPL,HD,Dynamic Time Warping (DTW),O(n*m),11,421374
+AAPL,HD,Similitud por Coseno,O(n),0,436107
+AAPL,MA,Distancia Euclidiana,O(n),0,574203
+AAPL,MA,Correlacion de Pearson,O(n),0,506237
+AAPL,MA,Dynamic Time Warping (DTW),O(n*m),10,744390
+AAPL,MA,Similitud por Coseno,O(n),0,506660
+AAPL,DIS,Distancia Euclidiana,O(n),0,679426
+AAPL,DIS,Correlacion de Pearson,O(n),0,423088
+AAPL,DIS,Dynamic Time Warping (DTW),O(n*m),11,963753
+AAPL,DIS,Similitud por Coseno,O(n),0,421909
+AAPL,PYPL,Distancia Euclidiana,O(n),0,875463
+AAPL,PYPL,Correlacion de Pearson,O(n),0,427356
+AAPL,PYPL,Dynamic Time Warping (DTW),O(n*m),16,019728
+AAPL,PYPL,Similitud por Coseno,O(n),0,425175
+AAPL,ADBE,Distancia Euclidiana,O(n),0,737783
+AAPL,ADBE,Correlacion de Pearson,O(n),0,483027
+AAPL,ADBE,Dynamic Time Warping (DTW),O(n*m),13,275527
+AAPL,ADBE,Similitud por Coseno,O(n),0,482022
+AAPL,NFLX,Distancia Euclidiana,O(n),0,921873
+AAPL,NFLX,Correlacion de Pearson,O(n),0,380920
+AAPL,NFLX,Dynamic Time Warping (DTW),O(n*m),15,657519
+AAPL,NFLX,Similitud por Coseno,O(n),0,381765
+AAPL,INTC,Distancia Euclidiana,O(n),1,083513
+AAPL,INTC,Correlacion de Pearson,O(n),0,338512
+AAPL,INTC,Dynamic Time Warping (DTW),O(n*m),18,643943
+AAPL,INTC,Similitud por Coseno,O(n),0,339315
+AAPL,CSCO,Distancia Euclidiana,O(n),0,597513
+AAPL,CSCO,Correlacion de Pearson,O(n),0,458203
+AAPL,CSCO,Dynamic Time Warping (DTW),O(n*m),10,916262
+AAPL,CSCO,Similitud por Coseno,O(n),0,459139
+MSFT,GOOGL,Distancia Euclidiana,O(n),0,587499
+MSFT,GOOGL,Correlacion de Pearson,O(n),0,593578
+MSFT,GOOGL,Dynamic Time Warping (DTW),O(n*m),10,732519
+MSFT,GOOGL,Similitud por Coseno,O(n),0,594174
+MSFT,AMZN,Distancia Euclidiana,O(n),0,622279
+MSFT,AMZN,Correlacion de Pearson,O(n),0,627921
+MSFT,AMZN,Dynamic Time Warping (DTW),O(n*m),12,400033
+MSFT,AMZN,Similitud por Coseno,O(n),0,628277
+MSFT,NVDA,Distancia Euclidiana,O(n),0,923119
+MSFT,NVDA,Correlacion de Pearson,O(n),0,609082
+MSFT,NVDA,Dynamic Time Warping (DTW),O(n*m),19,665279
+MSFT,NVDA,Similitud por Coseno,O(n),0,609444
+MSFT,META,Distancia Euclidiana,O(n),0,810995
+MSFT,META,Correlacion de Pearson,O(n),0,562958
+MSFT,META,Dynamic Time Warping (DTW),O(n*m),14,642902
+MSFT,META,Similitud por Coseno,O(n),0,563437
+MSFT,TSLA,Distancia Euclidiana,O(n),1,198703
+MSFT,TSLA,Correlacion de Pearson,O(n),0,412245
+MSFT,TSLA,Dynamic Time Warping (DTW),O(n*m),24,381815
+MSFT,TSLA,Similitud por Coseno,O(n),0,412838
+MSFT,JPM,Distancia Euclidiana,O(n),0,661410
+MSFT,JPM,Correlacion de Pearson,O(n),0,321413
+MSFT,JPM,Dynamic Time Warping (DTW),O(n*m),11,203977
+MSFT,JPM,Similitud por Coseno,O(n),0,322352
+MSFT,JNJ,Distancia Euclidiana,O(n),0,684986
+MSFT,JNJ,Correlacion de Pearson,O(n),0,039855
+MSFT,JNJ,Dynamic Time Warping (DTW),O(n*m),10,863411
+MSFT,JNJ,Similitud por Coseno,O(n),0,040728
+MSFT,V,Distancia Euclidiana,O(n),0,589979
+MSFT,V,Correlacion de Pearson,O(n),0,429253
+MSFT,V,Dynamic Time Warping (DTW),O(n*m),10,484466
+MSFT,V,Similitud por Coseno,O(n),0,429752
+MSFT,PG,Distancia Euclidiana,O(n),0,655722
+MSFT,PG,Correlacion de Pearson,O(n),0,156290
+MSFT,PG,Dynamic Time Warping (DTW),O(n*m),10,655771
+MSFT,PG,Similitud por Coseno,O(n),0,156551
+MSFT,UNH,Distancia Euclidiana,O(n),0,857945
+MSFT,UNH,Correlacion de Pearson,O(n),0,134213
+MSFT,UNH,Dynamic Time Warping (DTW),O(n*m),12,710232
+MSFT,UNH,Similitud por Coseno,O(n),0,134339
+MSFT,HD,Distancia Euclidiana,O(n),0,635985
+MSFT,HD,Correlacion de Pearson,O(n),0,365666
+MSFT,HD,Dynamic Time Warping (DTW),O(n*m),11,055836
+MSFT,HD,Similitud por Coseno,O(n),0,365607
+MSFT,MA,Distancia Euclidiana,O(n),0,584265
+MSFT,MA,Correlacion de Pearson,O(n),0,462460
+MSFT,MA,Dynamic Time Warping (DTW),O(n*m),10,502539
+MSFT,MA,Similitud por Coseno,O(n),0,462870
+MSFT,DIS,Distancia Euclidiana,O(n),0,686930
+MSFT,DIS,Correlacion de Pearson,O(n),0,388685
+MSFT,DIS,Dynamic Time Warping (DTW),O(n*m),11,610647
+MSFT,DIS,Similitud por Coseno,O(n),0,387885
+MSFT,PYPL,Distancia Euclidiana,O(n),0,877702
+MSFT,PYPL,Correlacion de Pearson,O(n),0,414397
+MSFT,PYPL,Dynamic Time Warping (DTW),O(n*m),15,488092
+MSFT,PYPL,Similitud por Coseno,O(n),0,412788
+MSFT,ADBE,Distancia Euclidiana,O(n),0,662012
+MSFT,ADBE,Correlacion de Pearson,O(n),0,584098
+MSFT,ADBE,Dynamic Time Warping (DTW),O(n*m),12,459030
+MSFT,ADBE,Similitud por Coseno,O(n),0,583361
+MSFT,NFLX,Distancia Euclidiana,O(n),0,890559
+MSFT,NFLX,Correlacion de Pearson,O(n),0,421279
+MSFT,NFLX,Dynamic Time Warping (DTW),O(n*m),15,007224
+MSFT,NFLX,Similitud por Coseno,O(n),0,421892
+MSFT,INTC,Distancia Euclidiana,O(n),1,087080
+MSFT,INTC,Correlacion de Pearson,O(n),0,324861
+MSFT,INTC,Dynamic Time Warping (DTW),O(n*m),18,872569
+MSFT,INTC,Similitud por Coseno,O(n),0,325504
+MSFT,CSCO,Distancia Euclidiana,O(n),0,609263
+MSFT,CSCO,Correlacion de Pearson,O(n),0,407634
+MSFT,CSCO,Dynamic Time Warping (DTW),O(n*m),10,549332
+MSFT,CSCO,Similitud por Coseno,O(n),0,408399
+GOOGL,AMZN,Distancia Euclidiana,O(n),0,660358
+GOOGL,AMZN,Correlacion de Pearson,O(n),0,612202
+GOOGL,AMZN,Dynamic Time Warping (DTW),O(n*m),12,985377
+GOOGL,AMZN,Similitud por Coseno,O(n),0,612608
+GOOGL,NVDA,Distancia Euclidiana,O(n),0,995716
+GOOGL,NVDA,Correlacion de Pearson,O(n),0,512682
+GOOGL,NVDA,Dynamic Time Warping (DTW),O(n*m),20,095580
+GOOGL,NVDA,Similitud por Coseno,O(n),0,514836
+GOOGL,META,Distancia Euclidiana,O(n),0,840841
+GOOGL,META,Correlacion de Pearson,O(n),0,540987
+GOOGL,META,Dynamic Time Warping (DTW),O(n*m),15,220965
+GOOGL,META,Similitud por Coseno,O(n),0,541698
+GOOGL,TSLA,Distancia Euclidiana,O(n),1,203258
+GOOGL,TSLA,Correlacion de Pearson,O(n),0,417799
+GOOGL,TSLA,Dynamic Time Warping (DTW),O(n*m),24,095364
+GOOGL,TSLA,Similitud por Coseno,O(n),0,418674
+GOOGL,JPM,Distancia Euclidiana,O(n),0,728662
+GOOGL,JPM,Correlacion de Pearson,O(n),0,330397
+GOOGL,JPM,Dynamic Time Warping (DTW),O(n*m),12,718850
+GOOGL,JPM,Similitud por Coseno,O(n),0,332009
+GOOGL,JNJ,Distancia Euclidiana,O(n),0,767330
+GOOGL,JNJ,Correlacion de Pearson,O(n),0,069679
+GOOGL,JNJ,Dynamic Time Warping (DTW),O(n*m),12,751882
+GOOGL,JNJ,Similitud por Coseno,O(n),0,071137
+GOOGL,V,Distancia Euclidiana,O(n),0,694917
+GOOGL,V,Correlacion de Pearson,O(n),0,367978
+GOOGL,V,Dynamic Time Warping (DTW),O(n*m),12,126076
+GOOGL,V,Similitud por Coseno,O(n),0,368786
+GOOGL,PG,Distancia Euclidiana,O(n),0,759761
+GOOGL,PG,Correlacion de Pearson,O(n),0,116381
+GOOGL,PG,Dynamic Time Warping (DTW),O(n*m),12,533411
+GOOGL,PG,Similitud por Coseno,O(n),0,116802
+GOOGL,UNH,Distancia Euclidiana,O(n),0,934217
+GOOGL,UNH,Correlacion de Pearson,O(n),0,115468
+GOOGL,UNH,Dynamic Time Warping (DTW),O(n*m),14,206647
+GOOGL,UNH,Similitud por Coseno,O(n),0,115626
+GOOGL,HD,Distancia Euclidiana,O(n),0,725555
+GOOGL,HD,Correlacion de Pearson,O(n),0,331766
+GOOGL,HD,Dynamic Time Warping (DTW),O(n*m),12,651568
+GOOGL,HD,Similitud por Coseno,O(n),0,331455
+GOOGL,MA,Distancia Euclidiana,O(n),0,692601
+GOOGL,MA,Correlacion de Pearson,O(n),0,391194
+GOOGL,MA,Dynamic Time Warping (DTW),O(n*m),12,339784
+GOOGL,MA,Similitud por Coseno,O(n),0,391820
+GOOGL,DIS,Distancia Euclidiana,O(n),0,764717
+GOOGL,DIS,Correlacion de Pearson,O(n),0,358013
+GOOGL,DIS,Dynamic Time Warping (DTW),O(n*m),12,975270
+GOOGL,DIS,Similitud por Coseno,O(n),0,356414
+GOOGL,PYPL,Distancia Euclidiana,O(n),0,930724
+GOOGL,PYPL,Correlacion de Pearson,O(n),0,384597
+GOOGL,PYPL,Dynamic Time Warping (DTW),O(n*m),15,951010
+GOOGL,PYPL,Similitud por Coseno,O(n),0,381715
+GOOGL,ADBE,Distancia Euclidiana,O(n),0,776115
+GOOGL,ADBE,Correlacion de Pearson,O(n),0,471934
+GOOGL,ADBE,Dynamic Time Warping (DTW),O(n*m),14,183276
+GOOGL,ADBE,Similitud por Coseno,O(n),0,470434
+GOOGL,NFLX,Distancia Euclidiana,O(n),0,960333
+GOOGL,NFLX,Correlacion de Pearson,O(n),0,362733
+GOOGL,NFLX,Dynamic Time Warping (DTW),O(n*m),15,976267
+GOOGL,NFLX,Similitud por Coseno,O(n),0,363796
+GOOGL,INTC,Distancia Euclidiana,O(n),1,112587
+GOOGL,INTC,Correlacion de Pearson,O(n),0,326830
+GOOGL,INTC,Dynamic Time Warping (DTW),O(n*m),18,823610
+GOOGL,INTC,Similitud por Coseno,O(n),0,327821
+GOOGL,CSCO,Distancia Euclidiana,O(n),0,693614
+GOOGL,CSCO,Correlacion de Pearson,O(n),0,383147
+GOOGL,CSCO,Dynamic Time Warping (DTW),O(n*m),12,394736
+GOOGL,CSCO,Similitud por Coseno,O(n),0,384495
+AMZN,NVDA,Distancia Euclidiana,O(n),0,983132
+AMZN,NVDA,Correlacion de Pearson,O(n),0,543411
+AMZN,NVDA,Dynamic Time Warping (DTW),O(n*m),19,630099
+AMZN,NVDA,Similitud por Coseno,O(n),0,543781
+AMZN,META,Distancia Euclidiana,O(n),0,816468
+AMZN,META,Correlacion de Pearson,O(n),0,593083
+AMZN,META,Dynamic Time Warping (DTW),O(n*m),15,397605
+AMZN,META,Similitud por Coseno,O(n),0,593474
+AMZN,TSLA,Distancia Euclidiana,O(n),1,199105
+AMZN,TSLA,Correlacion de Pearson,O(n),0,440412
+AMZN,TSLA,Dynamic Time Warping (DTW),O(n*m),23,320179
+AMZN,TSLA,Similitud por Coseno,O(n),0,440913
+AMZN,JPM,Distancia Euclidiana,O(n),0,782614
+AMZN,JPM,Correlacion de Pearson,O(n),0,359147
+AMZN,JPM,Dynamic Time Warping (DTW),O(n*m),13,927987
+AMZN,JPM,Similitud por Coseno,O(n),0,359913
+AMZN,JNJ,Distancia Euclidiana,O(n),0,873199
+AMZN,JNJ,Correlacion de Pearson,O(n),0,004197
+AMZN,JNJ,Dynamic Time Warping (DTW),O(n*m),14,498563
+AMZN,JNJ,Similitud por Coseno,O(n),0,005000
+AMZN,V,Distancia Euclidiana,O(n),0,749745
+AMZN,V,Correlacion de Pearson,O(n),0,399689
+AMZN,V,Dynamic Time Warping (DTW),O(n*m),13,626603
+AMZN,V,Similitud por Coseno,O(n),0,400161
+AMZN,PG,Distancia Euclidiana,O(n),0,854646
+AMZN,PG,Correlacion de Pearson,O(n),0,080818
+AMZN,PG,Dynamic Time Warping (DTW),O(n*m),14,141463
+AMZN,PG,Similitud por Coseno,O(n),0,081094
+AMZN,UNH,Distancia Euclidiana,O(n),1,015602
+AMZN,UNH,Correlacion de Pearson,O(n),0,084685
+AMZN,UNH,Dynamic Time Warping (DTW),O(n*m),15,522013
+AMZN,UNH,Similitud por Coseno,O(n),0,084826
+AMZN,HD,Distancia Euclidiana,O(n),0,756889
+AMZN,HD,Correlacion de Pearson,O(n),0,401751
+AMZN,HD,Dynamic Time Warping (DTW),O(n*m),13,837284
+AMZN,HD,Similitud por Coseno,O(n),0,401704
+AMZN,MA,Distancia Euclidiana,O(n),0,738086
+AMZN,MA,Correlacion de Pearson,O(n),0,433075
+AMZN,MA,Dynamic Time Warping (DTW),O(n*m),13,663775
+AMZN,MA,Similitud por Coseno,O(n),0,433470
+AMZN,DIS,Distancia Euclidiana,O(n),0,768627
+AMZN,DIS,Correlacion de Pearson,O(n),0,444960
+AMZN,DIS,Dynamic Time Warping (DTW),O(n*m),13,386925
+AMZN,DIS,Similitud por Coseno,O(n),0,444236
+AMZN,PYPL,Distancia Euclidiana,O(n),0,889235
+AMZN,PYPL,Correlacion de Pearson,O(n),0,482941
+AMZN,PYPL,Dynamic Time Warping (DTW),O(n*m),15,244108
+AMZN,PYPL,Similitud por Coseno,O(n),0,481442
+AMZN,ADBE,Distancia Euclidiana,O(n),0,792535
+AMZN,ADBE,Correlacion de Pearson,O(n),0,505040
+AMZN,ADBE,Dynamic Time Warping (DTW),O(n*m),15,014462
+AMZN,ADBE,Similitud por Coseno,O(n),0,504455
+AMZN,NFLX,Distancia Euclidiana,O(n),0,921218
+AMZN,NFLX,Correlacion de Pearson,O(n),0,460356
+AMZN,NFLX,Dynamic Time Warping (DTW),O(n*m),15,759559
+AMZN,NFLX,Similitud por Coseno,O(n),0,460860
+AMZN,INTC,Distancia Euclidiana,O(n),1,122909
+AMZN,INTC,Correlacion de Pearson,O(n),0,353845
+AMZN,INTC,Dynamic Time Warping (DTW),O(n*m),19,475657
+AMZN,INTC,Similitud por Coseno,O(n),0,354393
+AMZN,CSCO,Distancia Euclidiana,O(n),0,769960
+AMZN,CSCO,Correlacion de Pearson,O(n),0,371589
+AMZN,CSCO,Dynamic Time Warping (DTW),O(n*m),14,110055
+AMZN,CSCO,Similitud por Coseno,O(n),0,372297
+NVDA,META,Distancia Euclidiana,O(n),1,079317
+NVDA,META,Correlacion de Pearson,O(n),0,498574
+NVDA,META,Dynamic Time Warping (DTW),O(n*m),20,079959
+NVDA,META,Similitud por Coseno,O(n),0,499347
+NVDA,TSLA,Distancia Euclidiana,O(n),1,284711
+NVDA,TSLA,Correlacion de Pearson,O(n),0,464512
+NVDA,TSLA,Dynamic Time Warping (DTW),O(n*m),23,540685
+NVDA,TSLA,Similitud por Coseno,O(n),0,465250
+NVDA,JPM,Distancia Euclidiana,O(n),1,101299
+NVDA,JPM,Correlacion de Pearson,O(n),0,330674
+NVDA,JPM,Dynamic Time Warping (DTW),O(n*m),21,077318
+NVDA,JPM,Similitud por Coseno,O(n),0,332709
+NVDA,JNJ,Distancia Euclidiana,O(n),1,247347
+NVDA,JNJ,Correlacion de Pearson,O(n),-0,096720
+NVDA,JNJ,Dynamic Time Warping (DTW),O(n*m),22,725440
+NVDA,JNJ,Similitud por Coseno,O(n),-0,094170
+NVDA,V,Distancia Euclidiana,O(n),1,090104
+NVDA,V,Correlacion de Pearson,O(n),0,343659
+NVDA,V,Dynamic Time Warping (DTW),O(n*m),21,354473
+NVDA,V,Similitud por Coseno,O(n),0,344584
+NVDA,PG,Distancia Euclidiana,O(n),1,218415
+NVDA,PG,Correlacion de Pearson,O(n),0,005233
+NVDA,PG,Dynamic Time Warping (DTW),O(n*m),22,337133
+NVDA,PG,Similitud por Coseno,O(n),0,006077
+NVDA,UNH,Distancia Euclidiana,O(n),1,316909
+NVDA,UNH,Correlacion de Pearson,O(n),0,061631
+NVDA,UNH,Dynamic Time Warping (DTW),O(n*m),22,013862
+NVDA,UNH,Similitud por Coseno,O(n),0,061921
+NVDA,HD,Distancia Euclidiana,O(n),1,116808
+NVDA,HD,Correlacion de Pearson,O(n),0,303613
+NVDA,HD,Dynamic Time Warping (DTW),O(n*m),21,034324
+NVDA,HD,Similitud por Coseno,O(n),0,302986
+NVDA,MA,Distancia Euclidiana,O(n),1,079808
+NVDA,MA,Correlacion de Pearson,O(n),0,367301
+NVDA,MA,Dynamic Time Warping (DTW),O(n*m),21,282990
+NVDA,MA,Similitud por Coseno,O(n),0,367944
+NVDA,DIS,Distancia Euclidiana,O(n),1,103217
+NVDA,DIS,Correlacion de Pearson,O(n),0,361855
+NVDA,DIS,Dynamic Time Warping (DTW),O(n*m),20,821244
+NVDA,DIS,Similitud por Coseno,O(n),0,359349
+NVDA,PYPL,Distancia Euclidiana,O(n),1,182381
+NVDA,PYPL,Correlacion de Pearson,O(n),0,380805
+NVDA,PYPL,Dynamic Time Warping (DTW),O(n*m),20,524671
+NVDA,PYPL,Similitud por Coseno,O(n),0,376606
+NVDA,ADBE,Distancia Euclidiana,O(n),1,053925
+NVDA,ADBE,Correlacion de Pearson,O(n),0,470165
+NVDA,ADBE,Dynamic Time Warping (DTW),O(n*m),20,436317
+NVDA,ADBE,Similitud por Coseno,O(n),0,467708
+NVDA,NFLX,Distancia Euclidiana,O(n),1,153787
+NVDA,NFLX,Correlacion de Pearson,O(n),0,416515
+NVDA,NFLX,Dynamic Time Warping (DTW),O(n*m),21,165820
+NVDA,NFLX,Similitud por Coseno,O(n),0,417526
+NVDA,INTC,Distancia Euclidiana,O(n),1,284875
+NVDA,INTC,Correlacion de Pearson,O(n),0,364380
+NVDA,INTC,Dynamic Time Warping (DTW),O(n*m),23,616736
+NVDA,INTC,Similitud por Coseno,O(n),0,365372
+NVDA,CSCO,Distancia Euclidiana,O(n),1,082318
+NVDA,CSCO,Correlacion de Pearson,O(n),0,360427
+NVDA,CSCO,Dynamic Time Warping (DTW),O(n*m),21,374612
+NVDA,CSCO,Similitud por Coseno,O(n),0,362145
+META,TSLA,Distancia Euclidiana,O(n),1,340159
+META,TSLA,Correlacion de Pearson,O(n),0,346381
+META,TSLA,Dynamic Time Warping (DTW),O(n*m),24,766861
+META,TSLA,Similitud por Coseno,O(n),0,347040
+META,JPM,Distancia Euclidiana,O(n),0,964578
+META,JPM,Correlacion de Pearson,O(n),0,306234
+META,JPM,Dynamic Time Warping (DTW),O(n*m),16,163084
+META,JPM,Similitud por Coseno,O(n),0,307192
+META,JNJ,Distancia Euclidiana,O(n),1,048727
+META,JNJ,Correlacion de Pearson,O(n),0,001256
+META,JNJ,Dynamic Time Warping (DTW),O(n*m),16,709005
+META,JNJ,Similitud por Coseno,O(n),0,002163
+META,V,Distancia Euclidiana,O(n),0,926010
+META,V,Correlacion de Pearson,O(n),0,362970
+META,V,Dynamic Time Warping (DTW),O(n*m),15,943796
+META,V,Similitud por Coseno,O(n),0,363529
+META,PG,Distancia Euclidiana,O(n),1,021190
+META,PG,Correlacion de Pearson,O(n),0,095607
+META,PG,Dynamic Time Warping (DTW),O(n*m),16,292610
+META,PG,Similitud por Coseno,O(n),0,095904
+META,UNH,Distancia Euclidiana,O(n),1,189551
+META,UNH,Correlacion de Pearson,O(n),0,033939
+META,UNH,Dynamic Time Warping (DTW),O(n*m),17,329812
+META,UNH,Similitud por Coseno,O(n),0,034121
+META,HD,Distancia Euclidiana,O(n),0,948270
+META,HD,Correlacion de Pearson,O(n),0,333211
+META,HD,Dynamic Time Warping (DTW),O(n*m),15,930863
+META,HD,Similitud por Coseno,O(n),0,333171
+META,MA,Distancia Euclidiana,O(n),0,900778
+META,MA,Correlacion de Pearson,O(n),0,415362
+META,MA,Dynamic Time Warping (DTW),O(n*m),15,860577
+META,MA,Similitud por Coseno,O(n),0,415811
+META,DIS,Distancia Euclidiana,O(n),0,950542
+META,DIS,Correlacion de Pearson,O(n),0,377368
+META,DIS,Dynamic Time Warping (DTW),O(n*m),15,518231
+META,DIS,Similitud por Coseno,O(n),0,376578
+META,PYPL,Distancia Euclidiana,O(n),0,996295
+META,PYPL,Correlacion de Pearson,O(n),0,462922
+META,PYPL,Dynamic Time Warping (DTW),O(n*m),16,403605
+META,PYPL,Similitud por Coseno,O(n),0,461262
+META,ADBE,Distancia Euclidiana,O(n),0,956441
+META,ADBE,Correlacion de Pearson,O(n),0,438929
+META,ADBE,Dynamic Time Warping (DTW),O(n*m),16,599949
+META,ADBE,Similitud por Coseno,O(n),0,438283
+META,NFLX,Distancia Euclidiana,O(n),1,031947
+META,NFLX,Correlacion de Pearson,O(n),0,434644
+META,NFLX,Dynamic Time Warping (DTW),O(n*m),16,681640
+META,NFLX,Similitud por Coseno,O(n),0,435241
+META,INTC,Distancia Euclidiana,O(n),1,244993
+META,INTC,Correlacion de Pearson,O(n),0,306447
+META,INTC,Dynamic Time Warping (DTW),O(n*m),21,243010
+META,INTC,Similitud por Coseno,O(n),0,307106
+META,CSCO,Distancia Euclidiana,O(n),0,960119
+META,CSCO,Correlacion de Pearson,O(n),0,306168
+META,CSCO,Dynamic Time Warping (DTW),O(n*m),16,039838
+META,CSCO,Similitud por Coseno,O(n),0,307064
+TSLA,JPM,Distancia Euclidiana,O(n),1,247325
+TSLA,JPM,Correlacion de Pearson,O(n),0,327553
+TSLA,JPM,Dynamic Time Warping (DTW),O(n*m),25,189771
+TSLA,JPM,Similitud por Coseno,O(n),0,328400
+TSLA,JNJ,Distancia Euclidiana,O(n),1,376034
+TSLA,JNJ,Correlacion de Pearson,O(n),-0,025464
+TSLA,JNJ,Dynamic Time Warping (DTW),O(n*m),26,559677
+TSLA,JNJ,Similitud por Coseno,O(n),-0,024603
+TSLA,V,Distancia Euclidiana,O(n),1,255343
+TSLA,V,Correlacion de Pearson,O(n),0,307533
+TSLA,V,Dynamic Time Warping (DTW),O(n*m),25,341738
+TSLA,V,Similitud por Coseno,O(n),0,308100
+TSLA,PG,Distancia Euclidiana,O(n),1,359738
+TSLA,PG,Correlacion de Pearson,O(n),0,034355
+TSLA,PG,Dynamic Time Warping (DTW),O(n*m),26,220150
+TSLA,PG,Similitud por Coseno,O(n),0,034665
+TSLA,UNH,Distancia Euclidiana,O(n),1,441443
+TSLA,UNH,Correlacion de Pearson,O(n),0,081784
+TSLA,UNH,Dynamic Time Warping (DTW),O(n*m),25,494326
+TSLA,UNH,Similitud por Coseno,O(n),0,081931
+TSLA,HD,Distancia Euclidiana,O(n),1,275622
+TSLA,HD,Correlacion de Pearson,O(n),0,276644
+TSLA,HD,Dynamic Time Warping (DTW),O(n*m),24,825072
+TSLA,HD,Similitud por Coseno,O(n),0,276647
+TSLA,MA,Distancia Euclidiana,O(n),1,263246
+TSLA,MA,Correlacion de Pearson,O(n),0,297786
+TSLA,MA,Dynamic Time Warping (DTW),O(n*m),25,237753
+TSLA,MA,Similitud por Coseno,O(n),0,298296
+TSLA,DIS,Distancia Euclidiana,O(n),1,237973
+TSLA,DIS,Correlacion de Pearson,O(n),0,362828
+TSLA,DIS,Dynamic Time Warping (DTW),O(n*m),24,753921
+TSLA,DIS,Similitud por Coseno,O(n),0,362117
+TSLA,PYPL,Distancia Euclidiana,O(n),1,280931
+TSLA,PYPL,Correlacion de Pearson,O(n),0,393939
+TSLA,PYPL,Dynamic Time Warping (DTW),O(n*m),24,316789
+TSLA,PYPL,Similitud por Coseno,O(n),0,392474
+TSLA,ADBE,Distancia Euclidiana,O(n),1,294542
+TSLA,ADBE,Correlacion de Pearson,O(n),0,330567
+TSLA,ADBE,Dynamic Time Warping (DTW),O(n*m),24,588335
+TSLA,ADBE,Similitud por Coseno,O(n),0,330042
+TSLA,NFLX,Distancia Euclidiana,O(n),1,345461
+TSLA,NFLX,Correlacion de Pearson,O(n),0,332799
+TSLA,NFLX,Dynamic Time Warping (DTW),O(n*m),24,878739
+TSLA,NFLX,Similitud por Coseno,O(n),0,333450
+TSLA,INTC,Distancia Euclidiana,O(n),1,462430
+TSLA,INTC,Correlacion de Pearson,O(n),0,288911
+TSLA,INTC,Dynamic Time Warping (DTW),O(n*m),25,713167
+TSLA,INTC,Similitud por Coseno,O(n),0,289538
+TSLA,CSCO,Distancia Euclidiana,O(n),1,283265
+TSLA,CSCO,Correlacion de Pearson,O(n),0,259071
+TSLA,CSCO,Dynamic Time Warping (DTW),O(n*m),25,434220
+TSLA,CSCO,Similitud por Coseno,O(n),0,259953
+JPM,JNJ,Distancia Euclidiana,O(n),0,601991
+JPM,JNJ,Correlacion de Pearson,O(n),0,182165
+JPM,JNJ,Dynamic Time Warping (DTW),O(n*m),9,875265
+JPM,JNJ,Similitud por Coseno,O(n),0,183097
+JPM,V,Distancia Euclidiana,O(n),0,534934
+JPM,V,Correlacion de Pearson,O(n),0,485352
+JPM,V,Dynamic Time Warping (DTW),O(n*m),9,787621
+JPM,V,Similitud por Coseno,O(n),0,485880
+JPM,PG,Distancia Euclidiana,O(n),0,614632
+JPM,PG,Correlacion de Pearson,O(n),0,173788
+JPM,PG,Dynamic Time Warping (DTW),O(n*m),9,821924
+JPM,PG,Similitud por Coseno,O(n),0,174077
+JPM,UNH,Distancia Euclidiana,O(n),0,815010
+JPM,UNH,Correlacion de Pearson,O(n),0,173261
+JPM,UNH,Dynamic Time Warping (DTW),O(n*m),12,373619
+JPM,UNH,Similitud por Coseno,O(n),0,173361
+JPM,HD,Distancia Euclidiana,O(n),0,610508
+JPM,HD,Correlacion de Pearson,O(n),0,364032
+JPM,HD,Dynamic Time Warping (DTW),O(n*m),10,902026
+JPM,HD,Similitud por Coseno,O(n),0,363888
+JPM,MA,Distancia Euclidiana,O(n),0,546211
+JPM,MA,Correlacion de Pearson,O(n),0,487749
+JPM,MA,Dynamic Time Warping (DTW),O(n*m),10,187543
+JPM,MA,Similitud por Coseno,O(n),0,488191
+JPM,DIS,Distancia Euclidiana,O(n),0,623582
+JPM,DIS,Correlacion de Pearson,O(n),0,466963
+JPM,DIS,Dynamic Time Warping (DTW),O(n*m),11,367382
+JPM,DIS,Similitud por Coseno,O(n),0,465798
+JPM,PYPL,Distancia Euclidiana,O(n),0,899196
+JPM,PYPL,Correlacion de Pearson,O(n),0,361855
+JPM,PYPL,Dynamic Time Warping (DTW),O(n*m),16,129231
+JPM,PYPL,Similitud por Coseno,O(n),0,359862
+JPM,ADBE,Distancia Euclidiana,O(n),0,840815
+JPM,ADBE,Correlacion de Pearson,O(n),0,266381
+JPM,ADBE,Dynamic Time Warping (DTW),O(n*m),14,296431
+JPM,ADBE,Similitud por Coseno,O(n),0,265641
+JPM,NFLX,Distancia Euclidiana,O(n),0,979359
+JPM,NFLX,Correlacion de Pearson,O(n),0,248801
+JPM,NFLX,Dynamic Time Warping (DTW),O(n*m),15,369679
+JPM,NFLX,Similitud por Coseno,O(n),0,249805
+JPM,INTC,Distancia Euclidiana,O(n),1,094355
+JPM,INTC,Correlacion de Pearson,O(n),0,297262
+JPM,INTC,Dynamic Time Warping (DTW),O(n*m),19,314676
+JPM,INTC,Similitud por Coseno,O(n),0,298095
+JPM,CSCO,Distancia Euclidiana,O(n),0,577561
+JPM,CSCO,Correlacion de Pearson,O(n),0,418764
+JPM,CSCO,Dynamic Time Warping (DTW),O(n*m),10,272706
+JPM,CSCO,Similitud por Coseno,O(n),0,419732
+JNJ,V,Distancia Euclidiana,O(n),0,558892
+JNJ,V,Correlacion de Pearson,O(n),0,224375
+JNJ,V,Dynamic Time Warping (DTW),O(n*m),9,358378
+JNJ,V,Similitud por Coseno,O(n),0,224948
+JNJ,PG,Distancia Euclidiana,O(n),0,407849
+JNJ,PG,Correlacion de Pearson,O(n),0,436835
+JNJ,PG,Dynamic Time Warping (DTW),O(n*m),7,693514
+JNJ,PG,Similitud por Coseno,O(n),0,436940
+JNJ,UNH,Distancia Euclidiana,O(n),0,730822
+JNJ,UNH,Correlacion de Pearson,O(n),0,201055
+JNJ,UNH,Dynamic Time Warping (DTW),O(n*m),11,204756
+JNJ,UNH,Similitud por Coseno,O(n),0,201143
+JNJ,HD,Distancia Euclidiana,O(n),0,571115
+JNJ,HD,Correlacion de Pearson,O(n),0,254498
+JNJ,HD,Dynamic Time Warping (DTW),O(n*m),10,165495
+JNJ,HD,Similitud por Coseno,O(n),0,254520
+JNJ,MA,Distancia Euclidiana,O(n),0,585900
+JNJ,MA,Correlacion de Pearson,O(n),0,204833
+JNJ,MA,Dynamic Time Warping (DTW),O(n*m),9,898791
+JNJ,MA,Similitud por Coseno,O(n),0,205358
+JNJ,DIS,Distancia Euclidiana,O(n),0,713664
+JNJ,DIS,Correlacion de Pearson,O(n),0,107074
+JNJ,DIS,Dynamic Time Warping (DTW),O(n*m),11,484489
+JNJ,DIS,Similitud por Coseno,O(n),0,106575
+JNJ,PYPL,Distancia Euclidiana,O(n),0,991909
+JNJ,PYPL,Correlacion de Pearson,O(n),0,051114
+JNJ,PYPL,Dynamic Time Warping (DTW),O(n*m),17,071347
+JNJ,PYPL,Similitud por Coseno,O(n),0,050121
+JNJ,ADBE,Distancia Euclidiana,O(n),0,868446
+JNJ,ADBE,Correlacion de Pearson,O(n),0,045977
+JNJ,ADBE,Dynamic Time Warping (DTW),O(n*m),14,367239
+JNJ,ADBE,Similitud por Coseno,O(n),0,045642
+JNJ,NFLX,Distancia Euclidiana,O(n),1,024512
+JNJ,NFLX,Correlacion de Pearson,O(n),0,018387
+JNJ,NFLX,Dynamic Time Warping (DTW),O(n*m),16,190285
+JNJ,NFLX,Similitud por Coseno,O(n),0,019250
+JNJ,INTC,Distancia Euclidiana,O(n),1,161019
+JNJ,INTC,Correlacion de Pearson,O(n),0,068101
+JNJ,INTC,Dynamic Time Warping (DTW),O(n*m),20,152438
+JNJ,INTC,Similitud por Coseno,O(n),0,068841
+JNJ,CSCO,Distancia Euclidiana,O(n),0,588922
+JNJ,CSCO,Correlacion de Pearson,O(n),0,177666
+JNJ,CSCO,Dynamic Time Warping (DTW),O(n*m),9,474019
+JNJ,CSCO,Similitud por Coseno,O(n),0,178544
+V,PG,Distancia Euclidiana,O(n),0,543752
+V,PG,Correlacion de Pearson,O(n),0,293747
+V,PG,Dynamic Time Warping (DTW),O(n*m),9,288119
+V,PG,Similitud por Coseno,O(n),0,293913
+V,UNH,Distancia Euclidiana,O(n),0,775988
+V,UNH,Correlacion de Pearson,O(n),0,217774
+V,UNH,Dynamic Time Warping (DTW),O(n*m),12,005329
+V,UNH,Similitud por Coseno,O(n),0,217856
+V,HD,Distancia Euclidiana,O(n),0,576645
+V,HD,Correlacion de Pearson,O(n),0,392369
+V,HD,Dynamic Time Warping (DTW),O(n*m),10,402265
+V,HD,Similitud por Coseno,O(n),0,392342
+V,MA,Distancia Euclidiana,O(n),0,256867
+V,MA,Correlacion de Pearson,O(n),0,879672
+V,MA,Dynamic Time Warping (DTW),O(n*m),6,193939
+V,MA,Similitud por Coseno,O(n),0,879746
+V,DIS,Distancia Euclidiana,O(n),0,620650
+V,DIS,Correlacion de Pearson,O(n),0,446643
+V,DIS,Dynamic Time Warping (DTW),O(n*m),10,957611
+V,DIS,Similitud por Coseno,O(n),0,445989
+V,PYPL,Distancia Euclidiana,O(n),0,850389
+V,PYPL,Correlacion de Pearson,O(n),0,436045
+V,PYPL,Dynamic Time Warping (DTW),O(n*m),15,784110
+V,PYPL,Similitud por Coseno,O(n),0,434707
+V,ADBE,Distancia Euclidiana,O(n),0,738092
+V,ADBE,Correlacion de Pearson,O(n),0,436693
+V,ADBE,Dynamic Time Warping (DTW),O(n*m),13,524030
+V,ADBE,Similitud por Coseno,O(n),0,436199
+V,NFLX,Distancia Euclidiana,O(n),0,936794
+V,NFLX,Correlacion de Pearson,O(n),0,310887
+V,NFLX,Dynamic Time Warping (DTW),O(n*m),15,342390
+V,NFLX,Similitud por Coseno,O(n),0,311476
+V,INTC,Distancia Euclidiana,O(n),1,107092
+V,INTC,Correlacion de Pearson,O(n),0,260531
+V,INTC,Dynamic Time Warping (DTW),O(n*m),19,603493
+V,INTC,Similitud por Coseno,O(n),0,261104
+V,CSCO,Distancia Euclidiana,O(n),0,569697
+V,CSCO,Correlacion de Pearson,O(n),0,393433
+V,CSCO,Dynamic Time Warping (DTW),O(n*m),9,551027
+V,CSCO,Similitud por Coseno,O(n),0,394044
+PG,UNH,Distancia Euclidiana,O(n),0,738475
+PG,UNH,Correlacion de Pearson,O(n),0,198473
+PG,UNH,Dynamic Time Warping (DTW),O(n*m),11,378735
+PG,UNH,Similitud por Coseno,O(n),0,198523
+PG,HD,Distancia Euclidiana,O(n),0,543484
+PG,HD,Correlacion de Pearson,O(n),0,350858
+PG,HD,Dynamic Time Warping (DTW),O(n*m),9,860032
+PG,HD,Similitud por Coseno,O(n),0,350881
+PG,MA,Distancia Euclidiana,O(n),0,561351
+PG,MA,Correlacion de Pearson,O(n),0,298426
+PG,MA,Dynamic Time Warping (DTW),O(n*m),9,806031
+PG,MA,Similitud por Coseno,O(n),0,298581
+PG,DIS,Distancia Euclidiana,O(n),0,700504
+PG,DIS,Correlacion de Pearson,O(n),0,168069
+PG,DIS,Dynamic Time Warping (DTW),O(n*m),11,326801
+PG,DIS,Similitud por Coseno,O(n),0,167863
+PG,PYPL,Distancia Euclidiana,O(n),0,971842
+PG,PYPL,Correlacion de Pearson,O(n),0,122343
+PG,PYPL,Dynamic Time Warping (DTW),O(n*m),16,655143
+PG,PYPL,Similitud por Coseno,O(n),0,121895
+PG,ADBE,Distancia Euclidiana,O(n),0,841460
+PG,ADBE,Correlacion de Pearson,O(n),0,141131
+PG,ADBE,Dynamic Time Warping (DTW),O(n*m),13,981230
+PG,ADBE,Similitud por Coseno,O(n),0,140991
+PG,NFLX,Distancia Euclidiana,O(n),1,010309
+PG,NFLX,Correlacion de Pearson,O(n),0,076631
+PG,NFLX,Dynamic Time Warping (DTW),O(n*m),15,738859
+PG,NFLX,Similitud por Coseno,O(n),0,076931
+PG,INTC,Distancia Euclidiana,O(n),1,148647
+PG,INTC,Correlacion de Pearson,O(n),0,114793
+PG,INTC,Dynamic Time Warping (DTW),O(n*m),19,962705
+PG,INTC,Similitud por Coseno,O(n),0,115049
+PG,CSCO,Distancia Euclidiana,O(n),0,578137
+PG,CSCO,Correlacion de Pearson,O(n),0,236916
+PG,CSCO,Dynamic Time Warping (DTW),O(n*m),9,154311
+PG,CSCO,Similitud por Coseno,O(n),0,237141
+UNH,HD,Distancia Euclidiana,O(n),0,812428
+UNH,HD,Correlacion de Pearson,O(n),0,170100
+UNH,HD,Dynamic Time Warping (DTW),O(n*m),12,611021
+UNH,HD,Similitud por Coseno,O(n),0,170122
+UNH,MA,Distancia Euclidiana,O(n),0,797444
+UNH,MA,Correlacion de Pearson,O(n),0,198767
+UNH,MA,Dynamic Time Warping (DTW),O(n*m),12,505300
+UNH,MA,Similitud por Coseno,O(n),0,198853
+UNH,DIS,Distancia Euclidiana,O(n),0,910778
+UNH,DIS,Correlacion de Pearson,O(n),0,100807
+UNH,DIS,Dynamic Time Warping (DTW),O(n*m),13,547529
+UNH,DIS,Similitud por Coseno,O(n),0,100693
+UNH,PYPL,Distancia Euclidiana,O(n),1,111587
+UNH,PYPL,Correlacion de Pearson,O(n),0,109066
+UNH,PYPL,Dynamic Time Warping (DTW),O(n*m),17,410511
+UNH,PYPL,Similitud por Coseno,O(n),0,108790
+UNH,ADBE,Distancia Euclidiana,O(n),0,994483
+UNH,ADBE,Correlacion de Pearson,O(n),0,135483
+UNH,ADBE,Dynamic Time Warping (DTW),O(n*m),15,319825
+UNH,ADBE,Similitud por Coseno,O(n),0,135402
+UNH,NFLX,Distancia Euclidiana,O(n),1,167639
+UNH,NFLX,Correlacion de Pearson,O(n),0,044713
+UNH,NFLX,Dynamic Time Warping (DTW),O(n*m),17,112537
+UNH,NFLX,Similitud por Coseno,O(n),0,044885
+UNH,INTC,Distancia Euclidiana,O(n),1,271209
+UNH,INTC,Correlacion de Pearson,O(n),0,094613
+UNH,INTC,Dynamic Time Warping (DTW),O(n*m),19,387840
+UNH,INTC,Similitud por Coseno,O(n),0,094748
+UNH,CSCO,Distancia Euclidiana,O(n),0,826488
+UNH,CSCO,Correlacion de Pearson,O(n),0,127357
+UNH,CSCO,Dynamic Time Warping (DTW),O(n*m),11,652603
+UNH,CSCO,Similitud por Coseno,O(n),0,127496
+HD,MA,Distancia Euclidiana,O(n),0,576607
+HD,MA,Correlacion de Pearson,O(n),0,420997
+HD,MA,Dynamic Time Warping (DTW),O(n*m),10,751233
+HD,MA,Similitud por Coseno,O(n),0,420977
+HD,DIS,Distancia Euclidiana,O(n),0,653539
+HD,DIS,Correlacion de Pearson,O(n),0,405612
+HD,DIS,Dynamic Time Warping (DTW),O(n*m),11,714271
+HD,DIS,Similitud por Coseno,O(n),0,405484
+HD,PYPL,Distancia Euclidiana,O(n),0,893884
+HD,PYPL,Correlacion de Pearson,O(n),0,366466
+HD,PYPL,Dynamic Time Warping (DTW),O(n*m),16,089498
+HD,PYPL,Similitud por Coseno,O(n),0,366095
+HD,ADBE,Distancia Euclidiana,O(n),0,772232
+HD,ADBE,Correlacion de Pearson,O(n),0,388163
+HD,ADBE,Dynamic Time Warping (DTW),O(n*m),13,713281
+HD,ADBE,Similitud por Coseno,O(n),0,388084
+HD,NFLX,Distancia Euclidiana,O(n),0,989036
+HD,NFLX,Correlacion de Pearson,O(n),0,226693
+HD,NFLX,Dynamic Time Warping (DTW),O(n*m),15,442080
+HD,NFLX,Similitud por Coseno,O(n),0,226716
+HD,INTC,Distancia Euclidiana,O(n),1,119347
+HD,INTC,Correlacion de Pearson,O(n),0,249604
+HD,INTC,Dynamic Time Warping (DTW),O(n*m),18,991925
+HD,INTC,Similitud por Coseno,O(n),0,249625
+HD,CSCO,Distancia Euclidiana,O(n),0,597639
+HD,CSCO,Correlacion de Pearson,O(n),0,369143
+HD,CSCO,Dynamic Time Warping (DTW),O(n*m),10,431473
+HD,CSCO,Similitud por Coseno,O(n),0,369026
+MA,DIS,Distancia Euclidiana,O(n),0,612736
+MA,DIS,Correlacion de Pearson,O(n),0,478297
+MA,DIS,Dynamic Time Warping (DTW),O(n*m),11,398224
+MA,DIS,Similitud por Coseno,O(n),0,477706
+MA,PYPL,Distancia Euclidiana,O(n),0,844864
+MA,PYPL,Correlacion de Pearson,O(n),0,451263
+MA,PYPL,Dynamic Time Warping (DTW),O(n*m),15,852924
+MA,PYPL,Similitud por Coseno,O(n),0,450039
+MA,ADBE,Distancia Euclidiana,O(n),0,734116
+MA,ADBE,Correlacion de Pearson,O(n),0,454069
+MA,ADBE,Dynamic Time Warping (DTW),O(n*m),13,368497
+MA,ADBE,Similitud por Coseno,O(n),0,453633
+MA,NFLX,Distancia Euclidiana,O(n),0,930650
+MA,NFLX,Correlacion de Pearson,O(n),0,333550
+MA,NFLX,Dynamic Time Warping (DTW),O(n*m),15,699176
+MA,NFLX,Similitud por Coseno,O(n),0,334053
+MA,INTC,Distancia Euclidiana,O(n),1,108663
+MA,INTC,Correlacion de Pearson,O(n),0,267693
+MA,INTC,Dynamic Time Warping (DTW),O(n*m),19,643260
+MA,INTC,Similitud por Coseno,O(n),0,268199
+MA,CSCO,Distancia Euclidiana,O(n),0,580399
+MA,CSCO,Correlacion de Pearson,O(n),0,401095
+MA,CSCO,Dynamic Time Warping (DTW),O(n*m),9,820709
+MA,CSCO,Similitud por Coseno,O(n),0,401616
+DIS,PYPL,Distancia Euclidiana,O(n),0,878854
+DIS,PYPL,Correlacion de Pearson,O(n),0,433641
+DIS,PYPL,Dynamic Time Warping (DTW),O(n*m),15,386785
+DIS,PYPL,Similitud por Coseno,O(n),0,433884
+DIS,ADBE,Distancia Euclidiana,O(n),0,832551
+DIS,ADBE,Correlacion de Pearson,O(n),0,355571
+DIS,ADBE,Dynamic Time Warping (DTW),O(n*m),14,187338
+DIS,ADBE,Similitud por Coseno,O(n),0,355687
+DIS,NFLX,Distancia Euclidiana,O(n),0,916208
+DIS,NFLX,Correlacion de Pearson,O(n),0,405966
+DIS,NFLX,Dynamic Time Warping (DTW),O(n*m),15,605852
+DIS,NFLX,Similitud por Coseno,O(n),0,405188
+DIS,INTC,Distancia Euclidiana,O(n),1,123168
+DIS,INTC,Correlacion de Pearson,O(n),0,292186
+DIS,INTC,Dynamic Time Warping (DTW),O(n*m),19,324586
+DIS,INTC,Similitud por Coseno,O(n),0,291559
+DIS,CSCO,Distancia Euclidiana,O(n),0,673908
+DIS,CSCO,Correlacion de Pearson,O(n),0,358558
+DIS,CSCO,Dynamic Time Warping (DTW),O(n*m),11,169969
+DIS,CSCO,Similitud por Coseno,O(n),0,357596
+PYPL,ADBE,Distancia Euclidiana,O(n),0,916323
+PYPL,ADBE,Correlacion de Pearson,O(n),0,453432
+PYPL,ADBE,Dynamic Time Warping (DTW),O(n*m),16,632539
+PYPL,ADBE,Similitud por Coseno,O(n),0,453527
+PYPL,NFLX,Distancia Euclidiana,O(n),1,019048
+PYPL,NFLX,Correlacion de Pearson,O(n),0,425710
+PYPL,NFLX,Dynamic Time Warping (DTW),O(n*m),16,963377
+PYPL,NFLX,Similitud por Coseno,O(n),0,424143
+PYPL,INTC,Distancia Euclidiana,O(n),1,257823
+PYPL,INTC,Correlacion de Pearson,O(n),0,268173
+PYPL,INTC,Dynamic Time Warping (DTW),O(n*m),20,821866
+PYPL,INTC,Similitud por Coseno,O(n),0,266911
+PYPL,CSCO,Distancia Euclidiana,O(n),0,929146
+PYPL,CSCO,Correlacion de Pearson,O(n),0,298718
+PYPL,CSCO,Dynamic Time Warping (DTW),O(n*m),16,176099
+PYPL,CSCO,Similitud por Coseno,O(n),0,296958
+ADBE,NFLX,Distancia Euclidiana,O(n),0,979377
+ADBE,NFLX,Correlacion de Pearson,O(n),0,394307
+ADBE,NFLX,Dynamic Time Warping (DTW),O(n*m),16,550876
+ADBE,NFLX,Similitud por Coseno,O(n),0,393715
+ADBE,INTC,Distancia Euclidiana,O(n),1,206686
+ADBE,INTC,Correlacion de Pearson,O(n),0,251045
+ADBE,INTC,Dynamic Time Warping (DTW),O(n*m),19,926548
+ADBE,INTC,Similitud por Coseno,O(n),0,250594
+ADBE,CSCO,Distancia Euclidiana,O(n),0,793611
+ADBE,CSCO,Correlacion de Pearson,O(n),0,343595
+ADBE,CSCO,Dynamic Time Warping (DTW),O(n*m),13,760366
+ADBE,CSCO,Similitud por Coseno,O(n),0,342856
+NFLX,INTC,Distancia Euclidiana,O(n),1,309230
+NFLX,INTC,Correlacion de Pearson,O(n),0,219222
+NFLX,INTC,Dynamic Time Warping (DTW),O(n*m),21,713071
+NFLX,INTC,Similitud por Coseno,O(n),0,219942
+NFLX,CSCO,Distancia Euclidiana,O(n),0,975283
+NFLX,CSCO,Correlacion de Pearson,O(n),0,245881
+NFLX,CSCO,Dynamic Time Warping (DTW),O(n*m),15,793539
+NFLX,CSCO,Similitud por Coseno,O(n),0,246824
+INTC,CSCO,Distancia Euclidiana,O(n),1,079889
+INTC,CSCO,Correlacion de Pearson,O(n),0,317592
+INTC,CSCO,Dynamic Time Warping (DTW),O(n*m),19,297941
+INTC,CSCO,Similitud por Coseno,O(n),0,318351
