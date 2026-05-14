@@ -1,6 +1,7 @@
 package com.analisis.servicio;
 
 import com.analisis.modelo.DatoFinanciero;
+import com.analisis.servicio.CalendarioBursatil.Mercado;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -44,6 +45,7 @@ public class LimpiarDatos {
         logDecisiones.add("Registros iniciales: " + datos.size());
         
         int duplicadosEliminados = eliminarDuplicados(datos);
+        int diasNoHabiles = filtrarDiasNoHabiles(datos);
         Map<String, List<DatoFinanciero>> porSimbolo = agruparPorSimbolo(datos);
         int outliersDetectados = detectarOutliers(porSimbolo);
         int valoresFaltantes = interpolarValoresFaltantes(porSimbolo);
@@ -57,10 +59,12 @@ public class LimpiarDatos {
         
         System.out.println("\nReporte de limpieza:");
         System.out.println("  - Duplicados eliminados: " + duplicadosEliminados);
+        System.out.println("  - Dias no habiles eliminados: " + diasNoHabiles);
         System.out.println("  - Outliers detectados: " + outliersDetectados);
         System.out.println("  - Valores interpolados: " + valoresFaltantes);
         System.out.println("  - Registros finales: " + datos.size());
         
+        logDecisiones.add("Dias no habiles eliminados: " + diasNoHabiles);
         logDecisiones.add("Registros finales: " + datos.size());
         
         return datos;
@@ -96,6 +100,42 @@ public class LimpiarDatos {
                 eliminados++;
             } else {
                 seen.add(key);
+            }
+        }
+        return eliminados;
+    }
+
+    /**
+     * FILTRACION POR CALENDARIO BURSATIL
+     * ===================================
+     * Complejidad: O(n)
+     * 
+     * IMPACTO ALGORITMICO:
+     * - Elimina registros en fines de semana y festivos
+     * - Justificacion: Los mercados no operan en dias no habiles
+     * - Impacto: Evita gaps artificiales en series temporales
+     * - Mejora: Alinea series de diferentes fuentes
+     * 
+     * @param datos Lista de datos a filtrar
+     * @return cantidad de registros eliminados
+     */
+    private int filtrarDiasNoHabiles(List<DatoFinanciero> datos) {
+        int eliminados = 0;
+        Iterator<DatoFinanciero> it = datos.iterator();
+        while (it.hasNext()) {
+            DatoFinanciero d = it.next();
+            try {
+                LocalDate fecha = LocalDate.parse(d.getFecha(), FORMATO_FECHA);
+                if (!CalendarioBursatil.esDiaHabil(fecha, Mercado.USA)) {
+                    it.remove();
+                    eliminados++;
+                    logDecisiones.add("Eliminado dia no habil: " + d.getFecha() + " (" + d.getSimbolo() + ")");
+                }
+            } catch (Exception e) {
+                // Si hay error al parsear fecha, eliminar el registro
+                it.remove();
+                eliminados++;
+                logDecisiones.add("Eliminado por fecha invalida: " + d.getFecha());
             }
         }
         return eliminados;

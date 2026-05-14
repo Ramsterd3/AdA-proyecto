@@ -161,4 +161,61 @@ public class GeneradorGrafica {
             System.err.println("Error al guardar grafica de series: " + e.getMessage());
         }
     }
+
+    /**
+     * Genera una grafica comparativa de las 4 metricas de similitud
+     * entre dos activos
+     * 
+     * @param simboloA Primer simbolo
+     * @param simboloB Segundo simbolo
+     * @param euclidiana Valor de distancia euclidiana
+     * @param pearson Valor de correlacion de Pearson
+     * @param dtw Valor de DTW
+     * @param coseno Valor de similitud por coseno
+     * @param archivo Nombre del archivo de salida
+     */
+    public void generarGraficaSimilitud(String simboloA, String simboloB,
+                                        double euclidiana, double pearson,
+                                        double dtw, double coseno,
+                                        String archivo) {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        
+        // Agregar valores (normalizados para visualizacion)
+        dataset.addValue(euclidiana, "Valor", "Distancia\nEuclidiana");
+        dataset.addValue(pearson, "Valor", "Correlacion\nPearson");
+        dataset.addValue(dtw, "Valor", "DTW");
+        dataset.addValue(coseno, "Valor", "Similitud\nCoseno");
+        
+        JFreeChart chart = ChartFactory.createBarChart(
+            "Metricas de Similitud: " + simboloA + " vs " + simboloB,
+            "Metrica",
+            "Valor",
+            dataset,
+            PlotOrientation.VERTICAL,
+            false,
+            true,
+            false
+        );
+        
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.setBackgroundPaint(Color.WHITE);
+        plot.setRangeGridlinePaint(Color.GRAY);
+        
+        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+        renderer.setMaximumBarWidth(0.15);
+        
+        // Colores diferentes para cada metrica
+        renderer.setSeriesPaint(0, new Color(52, 152, 219));  // Azul
+        
+        // Personalizar colores por categoria
+        plot.getRenderer().setSeriesPaint(0, new Color(52, 152, 219));
+        
+        try {
+            BufferedImage image = chart.createBufferedImage(1000, 600);
+            ImageIO.write(image, "png", new File(archivo));
+            System.out.println("Grafica de similitud guardada en " + archivo);
+        } catch (IOException e) {
+            System.err.println("Error al guardar grafica de similitud: " + e.getMessage());
+        }
+    }
 }

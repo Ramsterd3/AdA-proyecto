@@ -223,11 +223,23 @@ Principal        ObtenerDatos         API Twelve Data      LimpiarDatos       Fi
 
 **Complejidad**: O(1) por consulta
 
-**enum Mercado**: `COLOMBIA`, `USA`, `AMBOS`
+**enum Mercado**: `USA`, `COLOMBIA`, `AMBOS`
 
-**Festivos incluidos (2021-2026)**:
- - Colombia: Reyes (6 ene), San José (19 mar), Trabajo (1 may), San Pedro (29 jun), Independencia (20 jul), Batalla de Boyacá (7 ago), Día de la Raza (12 oct), Todos los Santos (15 nov), Inmaculada Concepción (8 dic)
- - EE.UU.: New Year's Day, MLK Day, Presidents Day, Memorial Day, Independence Day, Labor Day, Columbus Day, Veterans Day, Thanksgiving, Christmas
+**Festivos incluidos (2020-2026)**:
+ - EE.UU.: New Year's Day, MLK Day, Presidents Day, Good Friday, Memorial Day, Independence Day, Labor Day, Thanksgiving, Christmas
+ - Colombia: Año Nuevo, Reyes Magos, San José, Semana Santa, Día del Trabajo, Ascensión, Corpus Christi, Sagrado Corazón, San Pedro y San Pablo, Independencia, Batalla de Boyacá, Asunción, Día de la Raza, Todos los Santos, Independencia de Cartagena, Inmaculada Concepción, Navidad
+
+**Métodos Implementados**:
+- `esDiaHabil(fecha, mercado)`: Verifica si una fecha es día hábil (O(1))
+- `siguienteDiaHabil(fecha, mercado)`: Obtiene el siguiente día hábil (O(k) donde k = días hasta encontrar hábil)
+- `anteriorDiaHabil(fecha, mercado)`: Obtiene el día hábil anterior (O(k))
+- `contarDiasHabiles(inicio, fin, mercado)`: Cuenta días hábiles en un rango (O(n) donde n = días en el rango)
+- `esFestivo(fecha, mercado)`: Verifica si es festivo (O(1))
+
+**Integración con ETL**:
+- Usado en `LimpiarDatos.filtrarDiasNoHabiles()` para eliminar registros en días no hábiles
+- Justifica gaps en series temporales
+- Alinea datos de diferentes fuentes al mismo calendario
 
 ### 3.3 Algoritmos de Ordenamiento
 
