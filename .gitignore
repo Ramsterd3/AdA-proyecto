@@ -1,6 +1,38 @@
+# Compiled class file
 *.class
+
+# Maven
 target/
+
+# Eclipse
 .classpath
 .project
 .settings/
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Package Files
+*.jar
+*.war
 *.zip
+*.tar.gz
+
+# Datos generados (mantener en repo para demostración)
+# datos_*.csv
+# top_*.csv
+# similitud_*.csv
+# *.png
+
+# Archivos temporales
+.github/java-upgrade/
+
+# Carpetas obsoletas
+AdA-Proyecto/
+
+# Logs
+*.log

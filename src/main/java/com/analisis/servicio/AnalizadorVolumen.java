@@ -26,8 +26,9 @@ public class AnalizadorVolumen {
         
         List<ResultadoVolumen> resultados = volumenPorFecha.entrySet().stream()
             .map(e -> new ResultadoVolumen(e.getKey(), e.getValue()))
-            .sorted(Comparator.comparingLong(ResultadoVolumen::getVolumenTotal))
+            .sorted(Comparator.comparingLong(ResultadoVolumen::getVolumenTotal).reversed())
             .limit(topN)
+            .sorted(Comparator.comparingLong(ResultadoVolumen::getVolumenTotal))
             .collect(Collectors.toList());
         
         System.out.println("\nLos " + topN + " dias con mayor volumen (orden ascendente):");
