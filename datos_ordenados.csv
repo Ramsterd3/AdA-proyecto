@@ -1,0 +1,13 @@
+Metodo de ordenamiento,Tamano,Tiempo (s)
+Radix Sort O(nk),25100,0,006838
+Pigeonhole Sort O(n + k),25100,0,008307
+Bitonic Sort O(log² n),25100,0,012097
+TimSort O(n log n),25100,0,013935
+Bucket Sort O(n + k),25100,0,014668
+Tree Sort O(n log n),25100,0,016091
+HeapSort O(n log n),25100,0,020281
+Comb Sort O(n²),25100,0,024225
+QuickSort O(n log n),25100,0,049347
+Binary Insertion Sort O(n²),25100,0,222815
+Selection Sort O(n²),25100,3,025381
+Gnome Sort O(n²),25100,3,403178

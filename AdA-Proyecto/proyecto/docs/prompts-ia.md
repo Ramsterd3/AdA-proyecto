@@ -72,7 +72,20 @@ Este documento declara el uso de herramientas de inteligencia artificial generat
 **Prompt 14**
 > "Agrega al documento de diseño la sección de arquitectura ETL con diagrama de bloques, descripción de cada etapa y diagrama de secuencia."
 
+## 8. Aplicación web
+
+**Prompt 15**
+> " Necesito un servidor web sin agregar dependencias genericas. Genera un ServidorWeb.java con com.sun.net.httpserver"
+
+**Prompt 16**
+> "Necesito una Template para HTML de la aplicacion web que cumpla con los elementos graficos expuestos en el proyecto."
 ---
+
+## 9. GEneracion de PDF
+
+> "Genera un dashboard bursátil interactivo en Spring Boot y Thymeleaf que muestre métricas financieras, clasificación de riesgo, volatilidad histórica y una matriz de correlación tipo heatmap para un conjunto de acciones y ETFs. El diseño debe ser moderno, responsive y orientado al análisis visual de datos financieros."
+
+> "Explica cómo implementar gráficos financieros tipo candlestick con medias móviles simples (SMA) y exportación de reportes en PDF dentro de una aplicación web Java usando JFreeChart e iTextPDF. Incluye la interpretación financiera de las visualizaciones y su utilidad en el análisis técnico. "
 
 ## Declaración de uso
 

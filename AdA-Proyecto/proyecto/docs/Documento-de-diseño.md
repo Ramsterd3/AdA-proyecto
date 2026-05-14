@@ -221,4 +221,36 @@ VOO, VTI, QQQ, SPY, VEA, VWO, BND, EFA, EEM, TLT
 - Java 17
 - Maven 3.8+
 
+## 8. Peticion de similitud 
+
+Navegador              ServidorWeb            AnalizadorSimilitud
+    |                       |                        |
+    |--GET /api/similitud-->|                        |
+    |  ?a=AAPL&b=MSFT       |--analizar(datos,A,B)-->|
+    |                       |                        |--extraerRetornos(A)
+    |                       |                        |--extraerRetornos(B)
+    |                       |                        |--Euclidiana.calcular()
+    |                       |                        |--Pearson.calcular()
+    |                       |                        |--DTW.calcular()
+    |                       |                        |--Coseno.calcular()
+    |                       |<--List<ResultadoSim>---|
+    |<--JSON (4 resultados)-|                        |
+
+## Diseño de frontend 
+
+El frontend se construyó con tecnologías estándar de la web (HTML5, CSS3, JavaScript ES6+) sin frameworks de UI (React, Vue, Angular). Esto garantiza que el dashboard funcione en cualquier navegador moderno sin pasos de compilación. La única dependencia externa de presentación es Chart.js 4.4, cargada desde CDN, que provee los componentes de visualización (línea y barras) pero no implementa ningún algoritmo del dominio financiero.
+
+Los datos del servidor se consumen mediante la Fetch API del navegador, realizando peticiones asíncronas a los endpoints JSON. El frontend no almacena estado: cada cálculo se solicita al servidor, que ejecuta el algoritmo Java correspondiente en tiempo real.
+
+## Ejecución 
+
+Sobre datos ya descargados (recomendado para evaluación rápida)
+Requiere haber ejecutado Principal.java previamente para generar datos_unificados.csv.
+mvn compile exec:java \
+  -Dexec.mainClass=com.analisis.web.PrincipalWeb \
+  -Dexec.args="datos_unificados.csv"
+
+Una vez iniciado el servidor, abrir en el navegador:
+http://localhost:8080
+
 Ejecución: `mvn compile exec:java`

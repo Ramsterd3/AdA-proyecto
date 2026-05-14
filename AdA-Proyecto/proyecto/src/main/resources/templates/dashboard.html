@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard Bursátil — Análisis de Algoritmos</title>
+
+    <!-- Highcharts para velas y heatmap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/11.3.0/highstock.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/11.3.0/highcharts-more.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/11.3.0/modules/heatmap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highcharts/11.3.0/modules/exporting.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg:        #0f172a;
+            --surface:   #1e293b;
+            --border:    #334155;
+            --accent:    #3b82f6;
+            --accent2:   #06b6d4;
+            --text:      #e2e8f0;
+            --muted:     #94a3b8;
+            --green:     #22c55e;
+            --red:       #ef4444;
+            --yellow:    #eab308;
+        }
+
+        body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif;
+               min-height: 100vh; }
+
+        /* ── Navbar ── */
+        nav {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 60px; position: sticky; top: 0; z-index: 100;
+        }
+        .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--accent);
+                     display: flex; align-items: center; gap: 10px; }
+        .nav-brand span { color: var(--text); }
+        .nav-actions { display: flex; gap: 10px; align-items: center; }
+
+        /* ── Botones ── */
+        .btn {
+            padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer;
+            font-size: 0.85rem; font-weight: 600; transition: all .2s;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-ghost { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+        .btn-ghost:hover { color: var(--text); border-color: var(--accent); }
+        .btn-success { background: var(--green); color: #fff; }
+        .btn-success:hover { background: #16a34a; }
+
+        /* ── Layout principal ── */
+        .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+        /* ── Tabs ── */
+        .tabs { display: flex; gap: 4px; background: var(--surface);
+                border-radius: 12px; padding: 4px; margin-bottom: 24px;
+                border: 1px solid var(--border); width: fit-content; }
+        .tab {
+            padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 0.875rem;
+            font-weight: 500; color: var(--muted); transition: all .2s; border: none;
+            background: transparent;
+        }
+        .tab.active { background: var(--accent); color: #fff; }
+        .tab:hover:not(.active) { color: var(--text); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* ── Cards ── */
+        .card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: 12px; padding: 20px;
+        }
+        .card-title { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+        .card-sub   { font-size: 0.78rem; color: var(--muted); margin-bottom: 16px; }
+
+        /* ── Stat cards ── */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                      gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: var(--surface); border: 1px solid var(--border);
+                     border-radius: 12px; padding: 16px; }
+        .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase;
+                      letter-spacing: .05em; }
+        .stat-value { font-size: 1.6rem; font-weight: 700; margin: 4px 0; }
+        .stat-hint  { font-size: 0.75rem; color: var(--muted); }
+        .text-green { color: var(--green); }
+        .text-red   { color: var(--red);   }
+        .text-yellow{ color: var(--yellow);}
+        .text-blue  { color: var(--accent);}
+
+        /* ── Chart containers ── */
+        #chart-heatmap { height: 580px; }
+        #chart-velas   { height: 460px; }
+        #chart-sma     { height: 200px; }
+
+        /* ── Selector de activo ── */
+        .selector-bar {
+            display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+        select.input-select {
+            background: var(--bg); color: var(--text); border: 1px solid var(--border);
+            border-radius: 8px; padding: 8px 12px; font-size: 0.875rem; cursor: pointer;
+        }
+        select.input-select:focus { outline: none; border-color: var(--accent); }
+
+        /* ── Tabla de riesgo ── */
+        .tabla-riesgo { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .tabla-riesgo th {
+            background: var(--bg); color: var(--muted); text-align: left;
+            padding: 10px 14px; font-weight: 600; text-transform: uppercase;
+            font-size: 0.72rem; letter-spacing: .05em; border-bottom: 1px solid var(--border);
+        }
+        .tabla-riesgo td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+        .tabla-riesgo tr:last-child td { border-bottom: none; }
+        .tabla-riesgo tr:hover td { background: rgba(255,255,255,.03); }
+        .badge {
+            display: inline-block; padding: 3px 10px; border-radius: 20px;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: .05em;
+        }
+        .badge-agresivo  { background: rgba(239,68,68,.15);  color: var(--red);   }
+        .badge-moderado  { background: rgba(234,179,8,.15);  color: var(--yellow);}
+        .badge-conserv   { background: rgba(34,197,94,.15);  color: var(--green); }
+
+        /* ── Volatility bar ── */
+        .vol-bar-bg { background: var(--border); border-radius: 4px; height: 6px; width: 120px; }
+        .vol-bar-fill { height: 6px; border-radius: 4px; }
+
+        /* ── Loading spinner ── */
+        .spinner { border: 3px solid var(--border); border-top-color: var(--accent);
+                   border-radius: 50%; width: 30px; height: 30px; animation: spin .8s linear infinite;
+                   margin: 60px auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── Resumen activo ── */
+        .resumen-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+                        gap: 12px; margin-bottom: 16px; }
+        .resumen-item { background: var(--bg); border-radius: 8px; padding: 10px 14px;
+                        border: 1px solid var(--border); }
+        .resumen-label { font-size: 0.72rem; color: var(--muted); }
+        .resumen-val   { font-size: 1.1rem; font-weight: 600; margin-top: 2px; }
+
+        /* ── Algoritmo info ── */
+        .algo-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(59,130,246,.12); border: 1px solid rgba(59,130,246,.3);
+            color: var(--accent); border-radius: 6px; padding: 4px 10px;
+            font-size: 0.75rem; font-weight: 600; margin: 4px 4px 4px 0;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 640px) {
+            nav { padding: 0 12px; }
+            .container { padding: 12px; }
+            .tabs { flex-wrap: wrap; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav>
+    <div class="nav-brand">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+            <polyline points="16 7 22 7 22 13"/>
+        </svg>
+        <span>Dashboard <strong>Bursátil</strong></span>
+    </div>
+    <div class="nav-actions">
+        <span style="font-size:.8rem;color:var(--muted)" th:text="${totalActivos} + ' activos cargados'"></span>
+        <a href="/exportar/pdf" class="btn btn-success">
+            ↓ Exportar PDF
+        </a>
+    </div>
+</nav>
+
+<!-- ═══════════════ CONTENIDO ═══════════════ -->
+<div class="container">
+
+    <!-- Stats resumen -->
+    <div class="stats-grid" id="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Activos</div>
+            <div class="stat-value text-blue" th:text="${totalActivos}">20</div>
+            <div class="stat-hint">instrumentos financieros</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Agresivos</div>
+            <div class="stat-value text-red" id="cnt-agresivo">—</div>
+            <div class="stat-hint">volatilidad &gt; 30%</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Moderados</div>
+            <div class="stat-value text-yellow" id="cnt-moderado">—</div>
+            <div class="stat-hint">volatilidad 15–30%</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Conservadores</div>
+            <div class="stat-value text-green" id="cnt-conserv">—</div>
+            <div class="stat-hint">volatilidad &lt; 15%</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Mayor volatilidad</div>
+            <div class="stat-value text-red" id="max-vol-sym">—</div>
+            <div class="stat-hint" id="max-vol-val">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Menor volatilidad</div>
+            <div class="stat-value text-green" id="min-vol-sym">—</div>
+            <div class="stat-hint" id="min-vol-val">—</div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('correlacion', this)">🔥 Correlación</button>
+        <button class="tab" onclick="switchTab('velas', this)">🕯 Velas + SMA</button>
+        <button class="tab" onclick="switchTab('riesgo', this)">⚠️ Riesgo</button>
+    </div>
+
+    <!-- ── Tab 1: Heatmap de correlación ── -->
+    <div id="tab-correlacion" class="tab-panel active">
+        <div class="card">
+            <div class="card-title">Mapa de Calor — Correlación de Pearson</div>
+            <div class="card-sub">
+                Calculado sobre retornos logarítmicos diarios. Complejidad: O(s²·n) &nbsp;|&nbsp;
+                <span class="algo-badge">Pearson r</span>
+                <span class="algo-badge">O(n) por par</span>
+            </div>
+            <div id="chart-heatmap"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+    <!-- ── Tab 2: Candlestick + SMA ── -->
+    <div id="tab-velas" class="tab-panel">
+        <div class="card">
+            <div class="card-title">Gráfico de Velas con Medias Móviles</div>
+            <div class="card-sub">
+                <span class="algo-badge">Candlestick OHLCV</span>
+                <span class="algo-badge">SMA-20 ventana deslizante O(n)</span>
+                <span class="algo-badge">SMA-50 ventana deslizante O(n)</span>
+            </div>
+
+            <div class="selector-bar">
+                <label style="color:var(--muted);font-size:.85rem">Activo:</label>
+                <select id="sel-activo" class="input-select" onchange="cargarVelas()">
+                    <option th:each="s : ${simbolos}" th:value="${s}" th:text="${s}"></option>
+                </select>
+                <label style="color:var(--muted);font-size:.85rem">Período:</label>
+                <select id="sel-dias" class="input-select" onchange="cargarVelas()">
+                    <option value="60">60 días</option>
+                    <option value="120">120 días</option>
+                    <option value="180" selected>180 días</option>
+                    <option value="365">365 días</option>
+                </select>
+            </div>
+
+            <!-- Resumen del activo seleccionado -->
+            <div class="resumen-grid" id="resumen-activo"></div>
+
+            <div id="chart-velas"><div class="spinner"></div></div>
+            <div id="chart-sma" style="margin-top:4px"></div>
+        </div>
+    </div>
+
+    <!-- ── Tab 3: Clasificación de riesgo ── -->
+    <div id="tab-riesgo" class="tab-panel">
+        <div class="card">
+            <div class="card-title">Clasificación por Volatilidad Histórica</div>
+            <div class="card-sub">
+                σ anualizada = desv_estándar(retornos) × √252 &nbsp;|&nbsp;
+                <span class="algo-badge">O(s·n)</span>
+                <span class="algo-badge">umbral 15% / 30%</span>
+            </div>
+            <div id="tabla-riesgo-container"><div class="spinner"></div></div>
+        </div>
+    </div>
+
+</div><!-- /container -->
+
+<!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+<script>
+// ── Tema Highcharts oscuro ──────────────────────────────────────────────────
+Highcharts.theme = {
+    colors:['#3b82f6','#06b6d4','#22c55e','#f59e0b','#ef4444','#8b5cf6','#ec4899'],
+    chart:{ backgroundColor:'#1e293b', style:{ fontFamily:'Segoe UI,system-ui,sans-serif' } },
+    title:{ style:{ color:'#e2e8f0' } },
+    subtitle:{ style:{ color:'#94a3b8' } },
+    xAxis:{ gridLineColor:'#334155', lineColor:'#334155', tickColor:'#334155',
+            labels:{ style:{ color:'#94a3b8' } }, title:{ style:{ color:'#94a3b8' } } },
+    yAxis:{ gridLineColor:'#334155', lineColor:'#334155', tickColor:'#334155',
+            labels:{ style:{ color:'#94a3b8' } }, title:{ style:{ color:'#94a3b8' } } },
+    legend:{ itemStyle:{ color:'#94a3b8' }, itemHoverStyle:{ color:'#e2e8f0' } },
+    tooltip:{ backgroundColor:'#0f172a', borderColor:'#334155', style:{ color:'#e2e8f0' } },
+    navigator:{ outlineColor:'#334155', handles:{ backgroundColor:'#334155', borderColor:'#94a3b8' },
+                xAxis:{ labels:{ style:{ color:'#94a3b8' } } },
+                series:{ color:'#3b82f6', lineColor:'#3b82f6' } },
+    scrollbar:{ barBackgroundColor:'#334155', barBorderColor:'#334155',
+                buttonBackgroundColor:'#1e293b', buttonBorderColor:'#334155',
+                trackBackgroundColor:'#1e293b', trackBorderColor:'#334155',
+                rifleColor:'#94a3b8' },
+    rangeSelector:{ buttonTheme:{ fill:'#334155', stroke:'#475569',
+                    style:{ color:'#94a3b8' },
+                    states:{ hover:{ fill:'#475569' }, select:{ fill:'#3b82f6', style:{ color:'#fff' } } } },
+                    inputStyle:{ backgroundColor:'#1e293b', color:'#e2e8f0' },
+                    labelStyle:{ color:'#94a3b8' } }
+};
+Highcharts.setOptions(Highcharts.theme);
+
+// ── Tabs ─────────────────────────────────────────────────────────────────────
+function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+
+    if (id === 'correlacion' && !window._corrCargada) cargarCorrelacion();
+    if (id === 'velas'       && !window._velasCargadas) cargarVelas();
+    if (id === 'riesgo'      && !window._riesgoCargado) cargarRiesgo();
+}
+
+// ── Heatmap de correlación ────────────────────────────────────────────────────
+async function cargarCorrelacion() {
+    const resp = await fetch('/api/correlacion');
+    const data = await resp.json();
+    window._corrCargada = true;
+
+    Highcharts.chart('chart-heatmap', {
+        chart: { type: 'heatmap', marginTop: 40, marginBottom: 80 },
+        title: { text: null },
+        xAxis: { categories: data.simbolos, title: null },
+        yAxis: { categories: data.simbolos, title: null, reversed: true },
+        colorAxis: {
+            min: -1, max: 1,
+            stops: [
+                [0,   '#ef4444'],
+                [0.5, '#1e293b'],
+                [1,   '#22c55e']
+            ]
+        },
+        legend: { align: 'right', layout: 'vertical', margin: 0, verticalAlign: 'top',
+                  y: 25, symbolHeight: 280 },
+        series: [{
+            name: 'Correlación',
+            borderWidth: 1,
+            borderColor: '#334155',
+            data: data.datos,
+            dataLabels: {
+                enabled: true,
+                color: '#e2e8f0',
+                style: { fontSize: '10px', fontWeight: 'normal', textOutline: 'none' },
+                formatter: function() { return this.point.value.toFixed(2); }
+            }
+        }],
+        tooltip: {
+            formatter: function() {
+                const xCat = this.series.xAxis.categories[this.point.x];
+                const yCat = this.series.yAxis.categories[this.point.y];
+                return `<b>${yCat} / ${xCat}</b><br>r = ${this.point.value.toFixed(4)}`;
+            }
+        }
+    });
+}
+
+// ── Candlestick + SMA ──────────────────────────────────────────────────────────
+async function cargarVelas() {
+    const simbolo = document.getElementById('sel-activo').value;
+    const dias    = document.getElementById('sel-dias').value;
+
+    document.getElementById('chart-velas').innerHTML = '<div class="spinner"></div>';
+    document.getElementById('chart-sma').innerHTML = '';
+    document.getElementById('resumen-activo').innerHTML = '';
+
+    const resp = await fetch(`/api/velas/${simbolo}?dias=${dias}`);
+    const data = await resp.json();
+    window._velasCargadas = true;
+
+    // Resumen
+    const r = data.resumen;
+    const retColor = r.retornoTotal >= 0 ? 'text-green' : 'text-red';
+    document.getElementById('resumen-activo').innerHTML = `
+        <div class="resumen-item"><div class="resumen-label">Último Cierre</div>
+            <div class="resumen-val text-blue">$${r.ultimoCierre}</div></div>
+        <div class="resumen-item"><div class="resumen-label">Volatilidad Anual</div>
+            <div class="resumen-val ${r.volatilidad > 30 ? 'text-red' : r.volatilidad > 15 ? 'text-yellow' : 'text-green'}">${r.volatilidad}%</div></div>
+        <div class="resumen-item"><div class="resumen-label">Retorno Total</div>
+            <div class="resumen-val ${retColor}">${r.retornoTotal > 0 ? '+' : ''}${r.retornoTotal}%</div></div>
+        <div class="resumen-item"><div class="resumen-label">Días de datos</div>
+            <div class="resumen-val">${r.diasDatos}</div></div>
+        <div class="resumen-item"><div class="resumen-label">Última fecha</div>
+            <div class="resumen-val" style="font-size:.9rem">${r.ultimaFecha}</div></div>
+    `;
+
+    // Preparar datos OHLCV para Highstock
+    const ohlcvData = data.ohlcv.map(d => [
+        new Date(d.fecha).getTime(),
+        d.apertura, d.maximo, d.minimo, d.cierre
+    ]);
+    const volData = data.ohlcv.map(d => [
+        new Date(d.fecha).getTime(), d.volumen
+    ]);
+    const sma20Data = data.sma20.map(d => [new Date(d.fecha).getTime(), d.sma]);
+    const sma50Data = data.sma50.map(d => [new Date(d.fecha).getTime(), d.sma]);
+
+    Highcharts.stockChart('chart-velas', {
+        chart: { height: 460 },
+        title: { text: `${simbolo} — Candlestick` },
+        rangeSelector: { selected: 1 },
+        yAxis: [{
+            labels: { align: 'right', x: -3 },
+            title: { text: 'Precio' },
+            height: '80%', lineWidth: 2, resize: { enabled: true }
+        }, {
+            labels: { align: 'right', x: -3 },
+            title: { text: 'Volumen' },
+            top: '82%', height: '18%', offset: 0, lineWidth: 2
+        }],
+        series: [{
+            type: 'candlestick',
+            name: simbolo,
+            data: ohlcvData,
+            color: '#ef4444',
+            upColor: '#22c55e',
+            lineColor: '#ef4444',
+            upLineColor: '#22c55e',
+            tooltip: { valueDecimals: 2 }
+        }, {
+            type: 'line',
+            name: 'SMA-20',
+            data: sma20Data,
+            color: '#f59e0b',
+            lineWidth: 1.5,
+            marker: { enabled: false },
+            tooltip: { valueDecimals: 2 }
+        }, {
+            type: 'line',
+            name: 'SMA-50',
+            data: sma50Data,
+            color: '#06b6d4',
+            lineWidth: 1.5,
+            marker: { enabled: false },
+            tooltip: { valueDecimals: 2 }
+        }, {
+            type: 'column',
+            name: 'Volumen',
+            data: volData,
+            yAxis: 1,
+            color: 'rgba(59,130,246,0.4)',
+            tooltip: { valueDecimals: 0 }
+        }],
+        navigator: { enabled: true },
+        scrollbar: { enabled: true }
+    });
+}
+
+// ── Tabla de riesgo ──────────────────────────────────────────────────────────
+async function cargarRiesgo() {
+    const resp = await fetch('/api/riesgo');
+    const data = await resp.json();
+    window._riesgoCargado = true;
+
+    // Actualizar stat cards
+    const a = data.filter(d => d.categoria === 'AGRESIVO').length;
+    const m = data.filter(d => d.categoria === 'MODERADO').length;
+    const c = data.filter(d => d.categoria === 'CONSERVADOR').length;
+    document.getElementById('cnt-agresivo').textContent = a;
+    document.getElementById('cnt-moderado').textContent = m;
+    document.getElementById('cnt-conserv').textContent  = c;
+
+    // Mayor y menor volatilidad
+    document.getElementById('max-vol-sym').textContent = data[0].simbolo;
+    document.getElementById('max-vol-val').textContent = data[0].volatilidad.toFixed(2) + '% anual';
+    const last = data[data.length - 1];
+    document.getElementById('min-vol-sym').textContent = last.simbolo;
+    document.getElementById('min-vol-val').textContent = last.volatilidad.toFixed(2) + '% anual';
+
+    // Tabla
+    const maxVol = data[0].volatilidad;
+    let html = `<table class="tabla-riesgo">
+        <thead><tr>
+            <th>#</th><th>Símbolo</th><th>Volatilidad Anual</th>
+            <th>Barra relativa</th><th>Categoría</th>
+        </tr></thead><tbody>`;
+
+    data.forEach((item, i) => {
+        const pct  = (item.volatilidad / maxVol * 100).toFixed(1);
+        const cat  = item.categoria;
+        const cls  = cat === 'AGRESIVO' ? 'badge-agresivo' : cat === 'MODERADO' ? 'badge-moderado' : 'badge-conserv';
+        const color= cat === 'AGRESIVO' ? '#ef4444' : cat === 'MODERADO' ? '#eab308' : '#22c55e';
+        const volCls = cat === 'AGRESIVO' ? 'text-red' : cat === 'MODERADO' ? 'text-yellow' : 'text-green';
+        html += `<tr>
+            <td style="color:var(--muted)">${i+1}</td>
+            <td style="font-weight:600">${item.simbolo}</td>
+            <td class="${volCls}" style="font-weight:600">${item.volatilidad.toFixed(2)}%</td>
+            <td>
+                <div class="vol-bar-bg">
+                    <div class="vol-bar-fill" style="width:${pct}%;background:${color}"></div>
+                </div>
+            </td>
+            <td><span class="badge ${cls}">${cat}</span></td>
+        </tr>`;
+    });
+    html += '</tbody></table>';
+    document.getElementById('tabla-riesgo-container').innerHTML = html;
+}
+
+// ── Inicialización ──────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+    cargarCorrelacion();
+    cargarRiesgo();  // para stat cards
+});
+</script>
+</body>
+</html>
